@@ -33,6 +33,9 @@
             background-color: var(--bg-main);
             font-weight: 300;
             line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         h1, h2, h3 {
@@ -111,10 +114,13 @@
 
         /* Main Content */
         main {
+            flex: 1; /* Pushes footer to the bottom */
             max-width: 900px;
+            width: 100%;
             margin: 0 auto 5rem;
             padding: 0 2rem;
             font-size: 1.05rem;
+            box-sizing: border-box;
         }
 
         .content-section {
@@ -198,6 +204,31 @@
                 width: 100%;
                 max-width: 350px; 
             }
+        }
+
+        /* --- FOOTER STYLING --- */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .contact-links {
+            margin-bottom: 1rem;
+        }
+        .contact-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin: 0 0.5rem;
+        }
+        .contact-links a:hover {
+            color: var(--accent);
+        }
+        .copyright {
+            font-size: 0.85rem;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -410,6 +441,15 @@
         </div>
         
     </main>
+
+    <footer>
+        <div class="contact-links">
+            <a href="mailto:Jocabe@mit.edu">Jocabe@mit.edu</a> &bull; 
+            <a href="tel:3524629325">352-462-9325</a> &bull; 
+            <a href="https://www.linkedin.com/in/jomcabel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <p class="copyright">&copy; 2026 Jose Carvajal-Beltran.</p>
+    </footer>
 
     <script>
         // Tab switching logic
