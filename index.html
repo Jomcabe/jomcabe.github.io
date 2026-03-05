@@ -206,6 +206,42 @@
             }
         }
 
+        /* --- PROJECT & ACADEMIC CARD STYLING --- */
+        .project-card {
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 6px;
+            background-color: var(--bg-secondary);
+            margin-bottom: 3rem;
+        }
+        .project-card h2 {
+            margin-top: 0;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            background-color: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .youtube-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: underline;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
         /* --- PDF EMBED STYLING --- */
         .resume-container {
             width: 100%;
@@ -435,27 +471,84 @@
         </div>
 
         <div id="personal-projects" class="content-section">
-            <div class="lang-content active-lang" data-lang="en">
-                <p>Details on hackathon builds and mechatronic designs will be archived here.</p>
+            
+            <div class="project-card">
+                <h2>Custom Air Hockey Table</h2>
+                
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/zGISlFQRvHM?si=5XxgsPfilVVC0CZm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                
+                <a href="https://www.youtube.com/watch?v=zGISlFQRvHM" target="_blank" rel="noopener noreferrer" class="youtube-link">Watch directly on YouTube</a>
+
+                <div class="lang-content active-lang" data-lang="en">
+                    <p>In this project, Diego Salcedo and I were both in the same Edgerton (Makerspace at MIT) section for Interphase Edge. We decided that it would be a great idea to build an air hockey table with unique V shape. After going through a million failures, we found that it would be virtually impossible to create what we wanted to with a very short timespan and while taking many difficult courses.</p>
+                    <p>Instead, we created our own air hockey table from scratch, with Diego working on the machining aspects and myself working on the electronics components. I managed to 'safely' configure a 120V AC OEM blower to the table and hook it up to power and an e-stop to blow air through the many holes Diego drilled. After this, I used a protoboard and infrared sensors to create a beam-break sensor and a scoreboard to track who is winning.</p>
+                    <p>All-in-all, this is definitely the most fun I have had creating a project!</p>
+                </div>
+
+                <div class="lang-content" data-lang="es">
+                    <p>En este proyecto, Diego Salcedo y yo estuvimos en la misma sección de Edgerton (el espacio de creadores de MIT) para Interphase Edge. Decidimos que sería una gran idea construir una mesa de hockey de aire con una forma única en V. Después de pasar por un millón de fracasos, descubrimos que sería virtualmente imposible crear lo que queríamos en un periodo de tiempo tan corto y mientras tomábamos muchos cursos difíciles.</p>
+                    <p>En su lugar, creamos nuestra propia mesa de hockey de aire desde cero, con Diego trabajando en los aspectos de mecanizado y yo trabajando en los componentes electrónicos. Logré configurar 'de manera segura' un soplador OEM de 120V CA a la mesa y conectarlo a la energía y a un botón de parada de emergencia para soplar aire a través de los muchos agujeros que Diego perforó. Después de esto, usé una protoboard y sensores infrarrojos para crear un sensor de barrera y un marcador para registrar quién iba ganando.</p>
+                    <p>En resumen, ¡esta es definitivamente la mayor diversión que he tenido creando un proyecto!</p>
+                </div>
+
+                <div class="lang-content" data-lang="de">
+                    <p>Bei diesem Projekt waren Diego Salcedo und ich im selben Edgerton (Makerspace am MIT) Kurs für Interphase Edge. Wir dachten, es wäre eine großartige Idee, einen Airhockey-Tisch mit einer einzigartigen V-Form zu bauen. Nach einer Million Fehlversuchen stellten wir fest, dass es praktisch unmöglich sein würde, das Gewünschte in so kurzer Zeit und neben vielen schwierigen Kursen zu realisieren.</p>
+                    <p>Stattdessen bauten wir unseren eigenen Airhockey-Tisch von Grund auf neu, wobei Diego an der maschinellen Bearbeitung und ich an den elektronischen Komponenten arbeitete. Ich habe es geschafft, 'sicher' ein 120-V-AC-OEM-Gebläse an den Tisch anzuschließen, es an den Strom und einen Not-Aus-Schalter zu koppeln, um Luft durch die vielen Löcher zu blasen, die Diego gebohrt hatte. Danach habe ich ein Protoboard und Infrarotsensoren verwendet, um eine Lichtschranke und eine Anzeigetafel zu bauen, um den Spielstand zu verfolgen.</p>
+                    <p>Alles in allem hat mir dieses Projekt definitiv am meisten Spaß gemacht!</p>
+                </div>
             </div>
-            <div class="lang-content" data-lang="es">
-                <p>Los detalles sobre las construcciones en hackathons y los diseños mecatrónicos se archivarán aquí.</p>
-            </div>
-            <div class="lang-content" data-lang="de">
-                <p>Details zu Hackathon-Konstruktionen und mechatronischen Designs werden hier archiviert.</p>
-            </div>
+
         </div>
 
         <div id="academics" class="content-section">
-            <div class="lang-content active-lang" data-lang="en">
-                <p>Notes and coursework related to Materials Science, classical mechanics, and electromagnetism.</p>
+            
+            <div class="project-card">
+                <h2>8.012 Classical Mechanics</h2>
+                <div class="lang-content active-lang" data-lang="en">
+                    <p>Rigorous foundation in classical mechanics, covering kinematics, dynamics, conservation laws, and oscillatory motion. The course emphasizes advanced problem-solving methodologies rooted in fundamental physical laws, mapping out equations of motion using Newtonian formulations.</p>
+                    <p>$$ \mathbf{F}_{net} = \frac{d\mathbf{p}}{dt} $$</p>
+                </div>
+                <div class="lang-content" data-lang="es">
+                    <p>Fundamento riguroso en mecánica clásica, cubriendo cinemática, dinámica, leyes de conservación y movimiento oscilatorio. El curso enfatiza metodologías avanzadas de resolución de problemas basadas en leyes físicas fundamentales, trazando ecuaciones de movimiento utilizando formulaciones newtonianas.</p>
+                    <p>$$ \mathbf{F}_{net} = \frac{d\mathbf{p}}{dt} $$</p>
+                </div>
+                <div class="lang-content" data-lang="de">
+                    <p>Strenge Grundlagen der klassischen Mechanik, einschließlich Kinematik, Dynamik, Erhaltungssätze und oszillierender Bewegung. Der Kurs konzentriert sich auf fortgeschrittene Problemlösungsmethoden, die in grundlegenden physikalischen Gesetzen verwurzelt sind, und leitet Bewegungsgleichungen mit Newtonschen Formulierungen ab.</p>
+                    <p>$$ \mathbf{F}_{net} = \frac{d\mathbf{p}}{dt} $$</p>
+                </div>
             </div>
-            <div class="lang-content" data-lang="es">
-                <p>Notas y trabajos de curso relacionados con la Ciencia de Materiales, la mecánica clásica y el electromagnetismo.</p>
+
+            <div class="project-card">
+                <h2>8.02 Electromagnetism</h2>
+                <div class="lang-content active-lang" data-lang="en">
+                    <p>Comprehensive study of electric and magnetic fields, exploring vector calculus applications in electromagnetism. Focus areas include Maxwell's equations in integral and differential forms, circuit analysis, and the propagation of electromagnetic waves.</p>
+                    <p>$$ \nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t} $$</p>
+                </div>
+                <div class="lang-content" data-lang="es">
+                    <p>Estudio exhaustivo de campos eléctricos y magnéticos, explorando aplicaciones de cálculo vectorial en el electromagnetismo. Las áreas de enfoque incluyen las ecuaciones de Maxwell en forma integral y diferencial, análisis de circuitos y la propagación de ondas electromagnéticas.</p>
+                    <p>$$ \nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t} $$</p>
+                </div>
+                <div class="lang-content" data-lang="de">
+                    <p>Umfassende Untersuchung von elektrischen und magnetischen Feldern mit Anwendungen der Vektoranalysis im Elektromagnetismus. Zu den Schwerpunkten gehören die Maxwellschen Gleichungen in integraler und differentieller Form, Schaltungsanalyse und die Ausbreitung elektromagnetischer Wellen.</p>
+                    <p>$$ \nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t} $$</p>
+                </div>
             </div>
-            <div class="lang-content" data-lang="de">
-                <p>Notizen und Kursarbeiten aus den Bereichen Materialwissenschaften, klassische Mechanik und Elektromagnetismus.</p>
+
+            <div class="project-card">
+                <h2>Materials Science Foundations</h2>
+                <div class="lang-content active-lang" data-lang="en">
+                    <p>Core principles of materials science and engineering, focusing on the fundamental relationship between atomic structure, material defects, and macroscopic thermal, mechanical, and electrical properties.</p>
+                </div>
+                <div class="lang-content" data-lang="es">
+                    <p>Principios básicos de la ciencia e ingeniería de materiales, centrándose en la relación fundamental entre la estructura atómica, los defectos de los materiales y las propiedades macroscópicas térmicas, mecánicas y eléctricas.</p>
+                </div>
+                <div class="lang-content" data-lang="de">
+                    <p>Grundprinzipien der Materialwissenschaften und Werkstofftechnik mit Schwerpunkt auf der grundlegenden Beziehung zwischen atomarer Struktur, Materialfehlern und makroskopischen thermischen, mechanischen und elektrischen Eigenschaften.</p>
+                </div>
             </div>
+
         </div>
 
         <div id="docs" class="content-section">
