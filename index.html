@@ -5,95 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jose Carvajal-Beltran | Jocabe</title>
     <style>
+        /* Dark Mode Color Palette */
         :root {
-            --text-main: #333333;
-            --text-light: #666666;
-            --bg-nav: #fafafa;
-            --border-color: #eaeaea;
+            --bg-main: #0a0a0a;
+            --bg-secondary: #171717;
+            --text-main: #e5e5e5;
+            --text-muted: #888888;
+            --accent: #ffffff;
+            --border-color: #333333;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* Changed to a clean, highly legible sans-serif for body */
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
+            background-color: var(--bg-main);
             font-weight: 300;
+            line-height: 1.8;
         }
 
-        /* Top Language Selector Mockup */
-        .top-bar {
-            padding: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
+        h1, h2, h3 {
+            /* Distinct, professional serif font for headings */
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: 400;
+            color: var(--accent);
         }
-        .lang-selector {
-            display: inline-block;
+
+        /* Top Bar & Language Selector */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+        }
+
+        select#lang-select {
+            background-color: transparent;
+            color: var(--text-main);
             border: 1px solid var(--border-color);
             padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            color: var(--text-light);
+            font-size: 0.9rem;
+            border-radius: 4px;
             cursor: pointer;
+            outline: none;
         }
-
-        /* Header Section */
-        header {
-            text-align: center;
-            margin-top: 2rem;
-            margin-bottom: 3rem;
-        }
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 400;
-            margin: 0 0 0.5rem 0;
-            letter-spacing: -0.5px;
-        }
-        header p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin: 0;
-        }
-
-        /* Navigation Bar */
-        nav {
-            background-color: var(--bg-nav);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: center;
-            padding: 1rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin: 0 1.5rem;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
-        }
-        nav a:hover {
+        
+        select#lang-select option {
+            background-color: var(--bg-secondary);
             color: var(--text-main);
         }
 
-        /* Main Content Container */
-        main {
-            max-width: 850px;
-            margin: 4rem auto;
+        /* Header Layout (Left-aligned instead of centered) */
+        header {
+            max-width: 900px;
+            margin: 4rem auto 2rem;
             padding: 0 2rem;
-            text-align: center;
-            line-height: 2;
-            font-size: 1.05rem;
         }
-        
-        main p {
-            margin-bottom: 2.5rem;
+        header h1 {
+            font-size: 2.8rem;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin: 0;
         }
 
-        /* Section hiding logic for a single-page setup */
+        /* Navigation */
+        nav {
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active-nav {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+            font-size: 1.05rem;
+        }
+
         .content-section {
             display: none;
+            animation: fadeIn 0.4s ease-in-out;
         }
         .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Multilingual utility classes */
+        .lang-content {
+            display: none;
+        }
+        .lang-content.active-lang {
             display: block;
         }
     </style>
@@ -101,37 +133,72 @@
 <body>
 
     <div class="top-bar">
-        <div class="lang-selector">EN &nbsp; ⌄</div>
+        <select id="lang-select" onchange="switchLanguage(this.value)">
+            <option value="en">EN - English</option>
+            <option value="es">ES - Español</option>
+            <option value="de">DE - Deutsch</option>
+        </select>
     </div>
 
     <header>
         <h1>jocabe</h1>
-        <p>The works and musings of Jose Carvajal-Beltran</p>
+        <p class="lang-content active-lang" data-lang="en">The works and musings of Jose Carvajal-Beltran</p>
+        <p class="lang-content" data-lang="es">Obras y reflexiones de Jose Carvajal-Beltran</p>
+        <p class="lang-content" data-lang="de">Werke und Gedanken von Jose Carvajal-Beltran</p>
     </header>
 
     <nav>
-        <a href="#home" onclick="showSection('home')">Home</a>
-        <a href="#photography" onclick="showSection('photography')">Photography</a>
-        <a href="#personal-projects" onclick="showSection('personal-projects')">Personal Projects</a>
-        <a href="#academics" onclick="showSection('academics')">Academics</a>
-        <a href="#docs" onclick="showSection('docs')">Docs</a>
+        <a class="nav-link active-nav" onclick="showSection('home', this)">
+            <span class="lang-content active-lang" data-lang="en">Home</span>
+            <span class="lang-content" data-lang="es">Inicio</span>
+            <span class="lang-content" data-lang="de">Startseite</span>
+        </a>
+        <a class="nav-link" onclick="showSection('photography', this)">
+            <span class="lang-content active-lang" data-lang="en">Photography</span>
+            <span class="lang-content" data-lang="es">Fotografía</span>
+            <span class="lang-content" data-lang="de">Fotografie</span>
+        </a>
+        <a class="nav-link" onclick="showSection('personal-projects', this)">
+            <span class="lang-content active-lang" data-lang="en">Personal Projects</span>
+            <span class="lang-content" data-lang="es">Proyectos Personales</span>
+            <span class="lang-content" data-lang="de">Eigene Projekte</span>
+        </a>
+        <a class="nav-link" onclick="showSection('academics', this)">
+            <span class="lang-content active-lang" data-lang="en">Academics</span>
+            <span class="lang-content" data-lang="es">Académico</span>
+            <span class="lang-content" data-lang="de">Akademisches</span>
+        </a>
+        <a class="nav-link" onclick="showSection('docs', this)">Docs</a>
     </nav>
 
     <main>
         <div id="home" class="content-section active">
-            <p>Welcome. I am an undergraduate student at MIT majoring in Materials Science. My work frequently bridges the gap between theoretical physical systems and tangible, real-world engineering applications.</p>
             
-            <p>Currently, my research focuses on the optimization of orientation algorithms for Volumetric Additive Manufacturing (VAM) and the synthesis of carbon nanostructures. Whether navigating complex challenges in multivariable calculus or applying mechanical principles to rapid prototyping, I enjoy the process of rigorous problem-solving.</p>
-            
-            <p>Outside of the lab and the classroom, I spend my time playing the guitar, out on the soccer field, practicing archery, or designing custom hardware builds like mechatronic air hockey systems.</p>
+            <div class="lang-content active-lang" data-lang="en">
+                <p>Welcome. I am an undergraduate student at MIT majoring in Materials Science. My work frequently bridges the gap between theoretical physical systems and tangible, real-world engineering applications.</p>
+                <p>Currently, my research focuses on the optimization of orientation algorithms for Volumetric Additive Manufacturing (VAM) and the synthesis of carbon nanostructures. Whether navigating complex challenges in multivariable calculus or applying mechanical principles to rapid prototyping, I enjoy the process of rigorous problem-solving.</p>
+                <p>Outside of the lab and the classroom, I spend my time playing the guitar, out on the soccer field, practicing archery, or designing custom hardware builds like mechatronic air hockey systems.</p>
+            </div>
+
+            <div class="lang-content" data-lang="es">
+                <p>Bienvenido. Soy estudiante de pregrado en MIT, con especialización en Ciencia de Materiales. Mi trabajo frecuentemente cierra la brecha entre sistemas físicos teóricos y aplicaciones de ingeniería tangibles en el mundo real.</p>
+                <p>Actualmente, mi investigación se centra en la optimización de algoritmos de orientación para la Manufactura Aditiva Volumétrica (VAM) y la síntesis de nanoestructuras de carbono. Ya sea navegando desafíos complejos en cálculo multivariable o aplicando principios mecánicos a la creación rápida de prototipos, disfruto el proceso de resolución rigurosa de problemas.</p>
+                <p>Fuera del laboratorio y el aula, paso mi tiempo tocando la guitarra, en la cancha de fútbol, practicando tiro con arco o diseñando hardware personalizado como sistemas mecatrónicos de hockey de aire.</p>
+            </div>
+
+            <div class="lang-content" data-lang="de">
+                <p>Willkommen. Ich bin Bachelor-Student am MIT mit Schwerpunkt Materialwissenschaften. Meine Arbeit schlägt häufig die Brücke zwischen theoretischen physikalischen Systemen und greifbaren, realen Ingenieuranwendungen.</p>
+                <p>Derzeit konzentriert sich meine Forschung auf die Optimierung von Orientierungsalgorithmen für die volumetrische additive Fertigung (VAM) und die Synthese von Kohlenstoff-Nanostrukturen. Ob bei der Bewältigung komplexer Herausforderungen in der multivariablen Analysis oder bei der Anwendung mechanischer Prinzipien auf das Rapid Prototyping, ich genieße den Prozess der rigorosen Problemlösung.</p>
+                <p>Außerhalb des Labors und des Hörsaals verbringe ich meine Zeit mit Gitarrespielen, auf dem Fußballplatz, beim Bogenschießen oder beim Entwerfen von maßgeschneiderten Hardware-Konstruktionen wie mechatronischen Airhockey-Systemen.</p>
+            </div>
         </div>
 
         <div id="photography" class="content-section">
-            <p>Photography portfolio coming soon.</p>
+            <p>Portfolio coming soon.</p>
         </div>
 
         <div id="personal-projects" class="content-section">
-            <p>Details on hackathon builds, custom Arduino tracking systems, and mechatronic designs will be archived here.</p>
+            <p>Details on hackathon builds and mechatronic designs will be archived here.</p>
         </div>
 
         <div id="academics" class="content-section">
@@ -139,21 +206,33 @@
         </div>
 
         <div id="docs" class="content-section">
-            <p>Documentation and standard operating procedures for various laboratory and engineering processes.</p>
+            <p>Documentation and standard operating procedures for various laboratory processes.</p>
         </div>
     </main>
 
     <script>
-        // Simple script to handle switching between the tabs
-        function showSection(sectionId) {
-            // Hide all sections
+        // Tab switching logic
+        function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            // Show the clicked section
             document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            element.classList.add('active-nav');
+        }
+
+        // Language switching logic
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-content').forEach(el => {
+                el.classList.remove('active-lang');
+                if (el.getAttribute('data-lang') === lang) {
+                    el.classList.add('active-lang');
+                }
+            });
         }
     </script>
-
 </body>
 </html>
