@@ -25,7 +25,7 @@
         }
         
         body {
-            /* Updated to Inter */
+            /* Clean, highly legible sans-serif for body */
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
             margin: 0;
@@ -36,7 +36,7 @@
         }
 
         h1, h2, h3 {
-            /* Updated to Merriweather */
+            /* Distinct, professional serif font for headings */
             font-family: 'Merriweather', serif;
             font-weight: 400;
             color: var(--accent);
@@ -161,6 +161,44 @@
             border-radius: 4px;
             margin: 1.5rem 0;
         }
+
+        /* --- AESTHETIC HOMEPAGE LAYOUT --- */
+        .split-home {
+            display: flex;
+            align-items: center; 
+            gap: 4rem; 
+            margin-top: 1rem;
+        }
+
+        .home-image-wrapper {
+            width: 45%; 
+            max-width: 380px;
+            flex-shrink: 0;
+            border-radius: 4px; 
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 40px rgba(255,255,255,0.03); 
+        }
+
+        .home-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .home-text-block {
+            flex: 1; 
+        }
+
+        @media (max-width: 768px) {
+            .split-home {
+                flex-direction: column; 
+                gap: 2rem;
+            }
+            .home-image-wrapper {
+                width: 100%;
+                max-width: 350px; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -205,24 +243,34 @@
     </nav>
 
     <main>
+        
         <div id="home" class="content-section active">
-            
-            <div class="lang-content active-lang" data-lang="en">
-                <p>Welcome. I am an undergraduate student at MIT majoring in Materials Science. </p>
-                <p>Currently, my research focuses on the optimization of orientation algorithms for Volumetric Additive Manufacturing (VAM). Whether navigating complex challenges in multivariable calculus or applying mechanical principles to rapid prototyping, I enjoy the process of rigorous problem-solving.</p>
-                <p>Outside of the lab and the classroom, I spend my time out on the soccer field, practicing archery, or designing custom hardware builds like air hockey systems.</p>
-            </div>
+            <div class="split-home">
+                
+                <div class="home-image-wrapper">
+                    <img src="portrait.jpg" alt="Portrait of Jose Carvajal-Beltran">
+                </div>
+                
+                <div class="home-text-block">
+                    <div class="lang-content active-lang" data-lang="en">
+                        <p>Welcome. I am an undergraduate student at MIT majoring in Materials Science.</p>
+                        <p>Currently, my research focuses on the optimization of orientation algorithms for Volumetric Additive Manufacturing (VAM). Whether navigating complex challenges in multivariable calculus or applying mechanical principles to rapid prototyping, I enjoy the process of rigorous problem-solving.</p>
+                        <p>Outside of the lab and the classroom, I spend my time out on the soccer field, practicing archery, or designing custom hardware builds like air hockey systems.</p>
+                    </div>
 
-            <div class="lang-content" data-lang="es">
-                <p>Bienvenido. Soy estudiante de pregrado en MIT, con especialización en Ciencia de Materiales.</p>
-                <p>Actualmente, mi investigación se centra en la optimización de algoritmos de orientación para la Manufactura Aditiva Volumétrica (VAM). Ya sea navegando desafíos complejos en cálculo multivariable o aplicando principios mecánicos a la creación rápida de prototipos, disfruto el proceso de resolución rigurosa de problemas.</p>
-                <p>Fuera del laboratorio y el aula, paso mi tiempo en la cancha de fútbol, practicando tiro con arco o diseñando hardware personalizado como sistemas mecatrónicos de hockey de aire.</p>
-            </div>
+                    <div class="lang-content" data-lang="es">
+                        <p>Bienvenido. Soy estudiante de pregrado en MIT, con especialización en Ciencia de Materiales.</p>
+                        <p>Actualmente, mi investigación se centra en la optimización de algoritmos de orientación para la Manufactura Aditiva Volumétrica (VAM). Ya sea navegando desafíos complejos en cálculo multivariable o aplicando principios mecánicos a la creación rápida de prototipos, disfruto el proceso de resolución rigurosa de problemas.</p>
+                        <p>Fuera del laboratorio y el aula, paso mi tiempo en la cancha de fútbol, practicando tiro con arco o diseñando hardware personalizado como sistemas mecatrónicos de hockey de aire.</p>
+                    </div>
 
-            <div class="lang-content" data-lang="de">
-                <p>Willkommen. Ich bin Bachelor-Student am MIT mit Schwerpunkt Materialwissenschaften. Meine Arbeit schlägt häufig die Brücke zwischen theoretischen physikalischen Systemen und greifbaren, realen Ingenieuranwendungen.</p>
-                <p>Derzeit konzentriert sich meine Forschung auf die Optimierung von Orientierungsalgorithmen für die volumetrische additive Fertigung (VAM) und die Synthese von Kohlenstoff-Nanostrukturen. Ob bei der Bewältigung komplexer Herausforderungen in der multivariablen Analysis oder bei der Anwendung mechanischer Prinzipien auf das Rapid Prototyping, ich genieße den Prozess der rigorosen Problemlösung.</p>
-                <p>Außerhalb des Labors und des Hörsaals verbringe ich meine auf dem Fußballplatz, beim Bogenschießen oder beim Entwerfen von maßgeschneiderten Hardware-Konstruktionen wie mechatronischen Airhockey-Systemen.</p>
+                    <div class="lang-content" data-lang="de">
+                        <p>Willkommen. Ich bin Bachelor-Student am MIT mit Schwerpunkt Materialwissenschaften.</p>
+                        <p>Derzeit konzentriert sich meine Forschung auf die Optimierung von Orientierungsalgorithmen für die volumetrische additive Fertigung (VAM). Ob bei der Bewältigung komplexer Herausforderungen in der multivariablen Analysis oder bei der Anwendung mechanischer Prinzipien auf das Rapid Prototyping, ich genieße den Prozess der rigorosen Problemlösung.</p>
+                        <p>Außerhalb des Labors und des Hörsaals verbringe ich meine Zeit auf dem Fußballplatz, beim Bogenschießen oder beim Entwerfen von maßgeschneiderten Hardware-Konstruktionen wie mechatronischen Airhockey-Systemen.</p>
+                    </div>
+                </div>
+                
             </div>
         </div>
 
@@ -232,16 +280,16 @@
                 <h2>Notes on Volumetric Additive Manufacturing</h2>
                 <span class="blog-date">March 5, 2026</span>
                 
-                <p>This is a sample blog post. To create a new post, you will just copy this entire HTML block and paste it above the older posts in your code. It is incredibly fast once you get the hang of it.</p>
+                <p>This is a sample blog post. To create a new post, you will just copy this entire HTML block and paste it above the older posts in your code.</p>
                 
                 <p>Because we added KaTeX to your site, you can now seamlessly write LaTeX for any classical mechanics or electromagnetism notes. Wrap block equations in double dollar signs:</p>
                 
                 <p>$$ \nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0} $$</p>
                 
                 <p>And you can write inline math by wrapping it in backslash-parentheses, like \( F = ma \), right in the middle of a sentence.</p>
-
-                </div>
             </div>
+
+        </div>
 
         <div id="personal-projects" class="content-section">
             <p>Details on hackathon builds and mechatronic designs will be archived here.</p>
@@ -254,6 +302,7 @@
         <div id="docs" class="content-section">
             <p>Documentation and standard operating procedures for various laboratory processes.</p>
         </div>
+        
     </main>
 
     <script>
