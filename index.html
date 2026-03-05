@@ -206,6 +206,24 @@
             }
         }
 
+        /* --- BUTTON STYLING (For the Resume Download) --- */
+        .btn-download {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--bg-main);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+            transition: opacity 0.3s ease;
+        }
+        .btn-download:hover {
+            opacity: 0.8;
+        }
+
         /* --- FOOTER STYLING --- */
         footer {
             text-align: center;
@@ -329,9 +347,6 @@
                     <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
                     
                     <br>
-                    
-                    <br>
-
                     <p>If we examine the slice of this 2D transform exactly along the x-axis (where \( v = 0 \)), the equation simplifies perfectly to match our 1D transform of the projection:</p>
                     
                     <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
@@ -360,9 +375,6 @@
                     <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
                     
                     <br>
-                    
-                    <br>
-
                     <p>Si examinamos el corte de esta transformada 2D exactamente a lo largo del eje x (donde \( v = 0 \)), la ecuación se simplifica perfectamente para coincidir con nuestra transformada 1D de la proyección:</p>
                     
                     <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
@@ -391,9 +403,6 @@
                     <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
                     
                     <br>
-                    
-                    <br>
-
                     <p>Wenn wir die Scheibe dieser 2D-Transformation genau entlang der x-Achse (wo \( v = 0 \)) untersuchen, vereinfacht sich die Gleichung perfekt, um unserer 1D-Transformation der Projektion zu entsprechen:</p>
                     
                     <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
@@ -429,15 +438,34 @@
         </div>
 
         <div id="docs" class="content-section">
+            
             <div class="lang-content active-lang" data-lang="en">
-                <p>Documentation and standard operating procedures for various laboratory processes.</p>
+                <h2>Curriculum Vitae</h2>
+                <p>A comprehensive overview of my academic background, research experience, and technical skills.</p>
+                <a href="resume.pdf" target="_blank" class="btn-download">View Resume (PDF)</a>
+
+                <h2 style="margin-top: 2rem;">Standard Operating Procedures</h2>
+                <p>Documentation and SOPs for various laboratory processes and hardware builds will be archived here.</p>
             </div>
+
             <div class="lang-content" data-lang="es">
-                <p>Documentación y procedimientos operativos estándar para diversos procesos de laboratorio.</p>
+                <h2>Curriculum Vitae</h2>
+                <p>Una descripción completa de mis antecedentes académicos, experiencia en investigación y habilidades técnicas.</p>
+                <a href="resume.pdf" target="_blank" class="btn-download">Ver Currículum (PDF)</a>
+
+                <h2 style="margin-top: 2rem;">Procedimientos Operativos Estándar</h2>
+                <p>La documentación y los POE para diversos procesos de laboratorio y construcciones de hardware se archivarán aquí.</p>
             </div>
+
             <div class="lang-content" data-lang="de">
-                <p>Dokumentation und Standardarbeitsanweisungen für verschiedene Laborprozesse.</p>
+                <h2>Lebenslauf</h2>
+                <p>Ein umfassender Überblick über meinen akademischen Hintergrund, meine Forschungserfahrung und meine technischen Fähigkeiten.</p>
+                <a href="resume.pdf" target="_blank" class="btn-download">Lebenslauf ansehen (PDF)</a>
+
+                <h2 style="margin-top: 2rem;">Standardarbeitsanweisungen</h2>
+                <p>Dokumentationen und SOPs für verschiedene Laborprozesse und Hardware-Konstruktionen werden hier archiviert.</p>
             </div>
+            
         </div>
         
     </main>
@@ -445,7 +473,7 @@
     <footer>
         <div class="contact-links">
             <a href="mailto:Jocabe@mit.edu">Jocabe@mit.edu</a> &bull; 
-            <a href="tel:3524619325">352-461-9325</a> &bull; 
+            <a href="tel:3524629325">352-462-9325</a> &bull; 
             <a href="https://www.linkedin.com/in/jomcabel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
         <p class="copyright">&copy; 2026 Jose Carvajal-Beltran.</p>
