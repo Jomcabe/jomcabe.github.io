@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --text-color: #0f172a;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 3rem;
+        }
+        h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hello, I'm [Your Name]</h1>
+        <p>Materials Science & Engineering Student</p>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am an engineering student passionate about advanced materials, physical systems, and rapid prototyping. I enjoy bridging the gap between theoretical physics and functional, real-world applications through research and hands-on building.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Recent Projects & Research</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Volumetric Additive Manufacturing</h3>
+                    <p>Researching and optimizing orientation algorithms for advanced VAM processes to improve fabrication efficiency.</p>
+                </div>
+                <div class="card">
+                    <h3>Carbon Nanostructures</h3>
+                    <p>Investigating the synthesis and application of nanomaterials in collaborative international research environments.</p>
+                </div>
+                <div class="card">
+                    <h3>Hardware Hackathons</h3>
+                    <p>Building custom mechatronic solutions, from developing automated tracking systems to competing in fast-paced design challenges.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <p>Always open to discussing new engineering projects, research opportunities, or just chatting about music and hobbies.</p>
+            <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 [Your Name]. Hosted for free on GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
