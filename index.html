@@ -248,7 +248,7 @@
             <div class="split-home">
                 
                 <div class="home-image-wrapper">
-                    <img src="portrait.jpg" alt="Portrait of Jose Carvajal-Beltran">
+                    <img src="portrait.JPG" alt="Portrait of Jose Carvajal-Beltran">
                 </div>
                 
                 <div class="home-text-block">
@@ -277,30 +277,136 @@
         <div id="blog" class="content-section">
             
             <div class="blog-post">
-                <h2>Notes on Volumetric Additive Manufacturing</h2>
-                <span class="blog-date">March 5, 2026</span>
-                
-                <p>This is a sample blog post. To create a new post, you will just copy this entire HTML block and paste it above the older posts in your code.</p>
-                
-                <p>Because we added KaTeX to your site, you can now seamlessly write LaTeX for any classical mechanics or electromagnetism notes. Wrap block equations in double dollar signs:</p>
-                
-                <p>$$ \nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0} $$</p>
-                
-                <p>And you can write inline math by wrapping it in backslash-parentheses, like \( F = ma \), right in the middle of a sentence.</p>
+                <div class="lang-content active-lang" data-lang="en">
+                    <h2>Understanding the Fourier Slice Theorem</h2>
+                    <span class="blog-date">March 5, 2026</span>
+                    
+                    <p>This is a sample blog post.</p>
+                    
+                    <p>The Fourier Slice Theorem (also known as the Projection-Slice Theorem) is a fundamental principle underpinning medical imaging modalities like CT scans. In simple terms, it states that the 1D Fourier transform of a parallel projection of a 2D object is exactly equal to a 1D slice of the 2D Fourier transform of that object through its origin.</p>
+
+                    <p>Mathematically, let's represent an object's density as a 2D function \( f(x, y) \). If we take a projection of this object along the y-axis, we integrate over \( y \) to get a 1D function \( p(x) \):</p>
+                    
+                    <p>$$ p(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$</p>
+                    
+                    <p>Next, we take the 1D Fourier transform of this projection:</p>
+                    
+                    <p>$$ P(u) = \int_{-\infty}^{\infty} p(x) e^{-i 2\pi u x} \, dx $$</p>
+                    
+                    <p>Now, consider the 2D Fourier transform of the original object \( f(x, y) \):</p>
+                    
+                    <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
+                    
+                    <br>
+                    
+                    <br>
+
+                    <p>If we examine the slice of this 2D transform exactly along the x-axis (where \( v = 0 \)), the equation simplifies perfectly to match our 1D transform of the projection:</p>
+                    
+                    <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
+                    
+                    <p>Because of this relationship, we can take physical projections of an object from multiple angles, compute their 1D Fourier transforms to build out a 2D frequency domain plane, and then apply an inverse 2D Fourier transform to reconstruct the original object's internal structure.</p>
+                </div>
+
+                <div class="lang-content" data-lang="es">
+                    <h2>Comprendiendo el Teorema del Corte de Fourier</h2>
+                    <span class="blog-date">5 de marzo de 2026</span>
+                    
+                    <p>Esta es una entrada de blog de muestra.</p>
+                    
+                    <p>El Teorema del Corte de Fourier (también conocido como el Teorema de Proyección-Corte) es un principio fundamental que sustenta las modalidades de imágenes médicas como las tomografías computarizadas (TC). En términos simples, establece que la transformada de Fourier 1D de una proyección paralela de un objeto 2D es exactamente igual a un corte 1D de la transformada de Fourier 2D de ese objeto a través de su origen.</p>
+
+                    <p>Matemáticamente, representemos la densidad de un objeto como una función 2D \( f(x, y) \). Si tomamos una proyección de este objeto a lo largo del eje y, integramos sobre \( y \) para obtener una función 1D \( p(x) \):</p>
+                    
+                    <p>$$ p(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$</p>
+                    
+                    <p>A continuación, tomamos la transformada de Fourier 1D de esta proyección:</p>
+                    
+                    <p>$$ P(u) = \int_{-\infty}^{\infty} p(x) e^{-i 2\pi u x} \, dx $$</p>
+                    
+                    <p>Ahora, consideremos la transformada de Fourier 2D del objeto original \( f(x, y) \):</p>
+                    
+                    <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
+                    
+                    <br>
+                    
+                    <br>
+
+                    <p>Si examinamos el corte de esta transformada 2D exactamente a lo largo del eje x (donde \( v = 0 \)), la ecuación se simplifica perfectamente para coincidir con nuestra transformada 1D de la proyección:</p>
+                    
+                    <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
+                    
+                    <p>Debido a esta relación, podemos tomar proyecciones físicas de un objeto desde múltiples ángulos, calcular sus transformadas de Fourier 1D para construir un plano de dominio de frecuencia 2D, y luego aplicar una transformada de Fourier 2D inversa para reconstruir la estructura interna original del objeto.</p>
+                </div>
+
+                <div class="lang-content" data-lang="de">
+                    <h2>Das Fourier-Scheiben-Theorem verstehen</h2>
+                    <span class="blog-date">5. März 2026</span>
+                    
+                    <p>Dies ist ein Beispiel-Blogbeitrag.</p>
+                    
+                    <p>Das Fourier-Scheiben-Theorem (auch als Projektions-Scheiben-Theorem bekannt) ist ein grundlegendes Prinzip, das medizinischen Bildgebungsverfahren wie CT-Scans zugrunde liegt. Einfach ausgedrückt besagt es, dass die 1D-Fourier-Transformation einer parallelen Projektion eines 2D-Objekts genau einer 1D-Scheibe der 2D-Fourier-Transformation dieses Objekts durch seinen Ursprung entspricht.</p>
+
+                    <p>Mathematisch gesehen stellen wir die Dichte eines Objekts als 2D-Funktion \( f(x, y) \) dar. Wenn wir eine Projektion dieses Objekts entlang der y-Achse vornehmen, integrieren wir über \( y \), um eine 1D-Funktion \( p(x) \) zu erhalten:</p>
+                    
+                    <p>$$ p(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$</p>
+                    
+                    <p>Als Nächstes nehmen wir die 1D-Fourier-Transformation dieser Projektion:</p>
+                    
+                    <p>$$ P(u) = \int_{-\infty}^{\infty} p(x) e^{-i 2\pi u x} \, dx $$</p>
+                    
+                    <p>Betrachten wir nun die 2D-Fourier-Transformation des ursprünglichen Objekts \( f(x, y) \):</p>
+                    
+                    <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
+                    
+                    <br>
+                    
+                    <br>
+
+                    <p>Wenn wir die Scheibe dieser 2D-Transformation genau entlang der x-Achse (wo \( v = 0 \)) untersuchen, vereinfacht sich die Gleichung perfekt, um unserer 1D-Transformation der Projektion zu entsprechen:</p>
+                    
+                    <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
+                    
+                    <p>Aufgrund dieser Beziehung können wir physische Projektionen eines Objekts aus mehreren Winkeln aufnehmen, ihre 1D-Fourier-Transformationen berechnen, um eine 2D-Frequenzbereichsebene aufzubauen, und dann eine inverse 2D-Fourier-Transformation anwenden, um die ursprüngliche innere Struktur des Objekts zu rekonstruieren.</p>
+                </div>
             </div>
 
         </div>
 
         <div id="personal-projects" class="content-section">
-            <p>Details on hackathon builds and mechatronic designs will be archived here.</p>
+            <div class="lang-content active-lang" data-lang="en">
+                <p>Details on hackathon builds and mechatronic designs will be archived here.</p>
+            </div>
+            <div class="lang-content" data-lang="es">
+                <p>Los detalles sobre las construcciones en hackathons y los diseños mecatrónicos se archivarán aquí.</p>
+            </div>
+            <div class="lang-content" data-lang="de">
+                <p>Details zu Hackathon-Konstruktionen und mechatronischen Designs werden hier archiviert.</p>
+            </div>
         </div>
 
         <div id="academics" class="content-section">
-            <p>Notes and coursework related to Materials Science, classical mechanics, and electromagnetism.</p>
+            <div class="lang-content active-lang" data-lang="en">
+                <p>Notes and coursework related to Materials Science, classical mechanics, and electromagnetism.</p>
+            </div>
+            <div class="lang-content" data-lang="es">
+                <p>Notas y trabajos de curso relacionados con la Ciencia de Materiales, la mecánica clásica y el electromagnetismo.</p>
+            </div>
+            <div class="lang-content" data-lang="de">
+                <p>Notizen und Kursarbeiten aus den Bereichen Materialwissenschaften, klassische Mechanik und Elektromagnetismus.</p>
+            </div>
         </div>
 
         <div id="docs" class="content-section">
-            <p>Documentation and standard operating procedures for various laboratory processes.</p>
+            <div class="lang-content active-lang" data-lang="en">
+                <p>Documentation and standard operating procedures for various laboratory processes.</p>
+            </div>
+            <div class="lang-content" data-lang="es">
+                <p>Documentación y procedimientos operativos estándar para diversos procesos de laboratorio.</p>
+            </div>
+            <div class="lang-content" data-lang="de">
+                <p>Dokumentation und Standardarbeitsanweisungen für verschiedene Laborprozesse.</p>
+            </div>
         </div>
         
     </main>
