@@ -206,22 +206,20 @@
             }
         }
 
-        /* --- BUTTON STYLING (For the Resume Download) --- */
-        .btn-download {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--bg-main);
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
+        /* --- PDF EMBED STYLING --- */
+        .resume-container {
+            width: 100%;
+            height: 80vh; 
+            min-height: 800px;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-            margin-bottom: 2rem;
-            transition: opacity 0.3s ease;
+            margin-top: 1rem;
+            background-color: #ffffff; /* Gives the PDF a crisp white backing */
         }
-        .btn-download:hover {
-            opacity: 0.8;
+        .fallback-link {
+            color: var(--accent);
+            text-decoration: underline;
+            font-size: 0.95rem;
         }
 
         /* --- FOOTER STYLING --- */
@@ -273,6 +271,11 @@
             <span class="lang-content" data-lang="es">Inicio</span>
             <span class="lang-content" data-lang="de">Startseite</span>
         </a>
+        <a class="nav-link" onclick="showSection('resume', this)">
+            <span class="lang-content active-lang" data-lang="en">Resume</span>
+            <span class="lang-content" data-lang="es">Currículum</span>
+            <span class="lang-content" data-lang="de">Lebenslauf</span>
+        </a>
         <a class="nav-link" onclick="showSection('blog', this)">
             <span class="lang-content active-lang" data-lang="en">Blog</span>
             <span class="lang-content" data-lang="es">Blog</span>
@@ -321,6 +324,24 @@
                 </div>
                 
             </div>
+        </div>
+
+        <div id="resume" class="content-section">
+            
+            <div class="lang-content active-lang" data-lang="en">
+                <p>If the document below does not load, you can <a href="resume.pdf" target="_blank" class="fallback-link">view or download my resume here</a>.</p>
+            </div>
+            <div class="lang-content" data-lang="es">
+                <p>Si el documento a continuación no se carga, puedes <a href="resume.pdf" target="_blank" class="fallback-link">ver o descargar mi currículum aquí</a>.</p>
+            </div>
+            <div class="lang-content" data-lang="de">
+                <p>Wenn das untenstehende Dokument nicht geladen wird, können Sie <a href="resume.pdf" target="_blank" class="fallback-link">meinen Lebenslauf hier ansehen oder herunterladen</a>.</p>
+            </div>
+
+            <iframe src="resume.pdf" class="resume-container">
+                This browser does not support embedded PDFs. Please use the link above to download.
+            </iframe>
+
         </div>
 
         <div id="blog" class="content-section">
@@ -438,34 +459,15 @@
         </div>
 
         <div id="docs" class="content-section">
-            
             <div class="lang-content active-lang" data-lang="en">
-                <h2>Curriculum Vitae</h2>
-                <p>A comprehensive overview of my academic background, research experience, and technical skills.</p>
-                <a href="resume.pdf" target="_blank" class="btn-download">View Resume (PDF)</a>
-
-                <h2 style="margin-top: 2rem;">Standard Operating Procedures</h2>
-                <p>Documentation and SOPs for various laboratory processes and hardware builds will be archived here.</p>
+                <p>Documentation and standard operating procedures for various laboratory processes.</p>
             </div>
-
             <div class="lang-content" data-lang="es">
-                <h2>Curriculum Vitae</h2>
-                <p>Una descripción completa de mis antecedentes académicos, experiencia en investigación y habilidades técnicas.</p>
-                <a href="resume.pdf" target="_blank" class="btn-download">Ver Currículum (PDF)</a>
-
-                <h2 style="margin-top: 2rem;">Procedimientos Operativos Estándar</h2>
-                <p>La documentación y los POE para diversos procesos de laboratorio y construcciones de hardware se archivarán aquí.</p>
+                <p>Documentación y procedimientos operativos estándar para diversos procesos de laboratorio.</p>
             </div>
-
             <div class="lang-content" data-lang="de">
-                <h2>Lebenslauf</h2>
-                <p>Ein umfassender Überblick über meinen akademischen Hintergrund, meine Forschungserfahrung und meine technischen Fähigkeiten.</p>
-                <a href="resume.pdf" target="_blank" class="btn-download">Lebenslauf ansehen (PDF)</a>
-
-                <h2 style="margin-top: 2rem;">Standardarbeitsanweisungen</h2>
-                <p>Dokumentationen und SOPs für verschiedene Laborprozesse und Hardware-Konstruktionen werden hier archiviert.</p>
+                <p>Dokumentation und Standardarbeitsanweisungen für verschiedene Laborprozesse.</p>
             </div>
-            
         </div>
         
     </main>
