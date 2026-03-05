@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jose Carvajal-Beltran | Jocabe</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
     <style>
         /* Dark Mode Color Palette */
         :root {
@@ -16,8 +25,8 @@
         }
         
         body {
-            /* Changed to a clean, highly legible sans-serif for body */
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            /* Updated to Inter */
+            font-family: 'Inter', sans-serif;
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -27,8 +36,8 @@
         }
 
         h1, h2, h3 {
-            /* Distinct, professional serif font for headings */
-            font-family: 'Georgia', 'Times New Roman', serif;
+            /* Updated to Merriweather */
+            font-family: 'Merriweather', serif;
             font-weight: 400;
             color: var(--accent);
         }
@@ -58,7 +67,7 @@
             color: var(--text-main);
         }
 
-        /* Header Layout (Left-aligned instead of centered) */
+        /* Header Layout */
         header {
             max-width: 900px;
             margin: 4rem auto 2rem;
@@ -128,6 +137,30 @@
         .lang-content.active-lang {
             display: block;
         }
+
+        /* Blog Specific Styling */
+        .blog-post {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3rem;
+            margin-bottom: 3rem;
+        }
+        .blog-post:last-child {
+            border-bottom: none;
+        }
+        .blog-post h2 {
+            margin-bottom: 0.5rem;
+        }
+        .blog-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .blog-image {
+            width: 100%;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -153,10 +186,10 @@
             <span class="lang-content" data-lang="es">Inicio</span>
             <span class="lang-content" data-lang="de">Startseite</span>
         </a>
-        <a class="nav-link" onclick="showSection('photography', this)">
-            <span class="lang-content active-lang" data-lang="en">Photography</span>
-            <span class="lang-content" data-lang="es">Fotografía</span>
-            <span class="lang-content" data-lang="de">Fotografie</span>
+        <a class="nav-link" onclick="showSection('blog', this)">
+            <span class="lang-content active-lang" data-lang="en">Blog</span>
+            <span class="lang-content" data-lang="es">Blog</span>
+            <span class="lang-content" data-lang="de">Blog</span>
         </a>
         <a class="nav-link" onclick="showSection('personal-projects', this)">
             <span class="lang-content active-lang" data-lang="en">Personal Projects</span>
@@ -193,9 +226,22 @@
             </div>
         </div>
 
-        <div id="photography" class="content-section">
-            <p>Portfolio coming soon.</p>
-        </div>
+        <div id="blog" class="content-section">
+            
+            <div class="blog-post">
+                <h2>Notes on Volumetric Additive Manufacturing</h2>
+                <span class="blog-date">March 5, 2026</span>
+                
+                <p>This is a sample blog post. To create a new post, you will just copy this entire HTML block and paste it above the older posts in your code. It is incredibly fast once you get the hang of it.</p>
+                
+                <p>Because we added KaTeX to your site, you can now seamlessly write LaTeX for any classical mechanics or electromagnetism notes. Wrap block equations in double dollar signs:</p>
+                
+                <p>$$ \nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0} $$</p>
+                
+                <p>And you can write inline math by wrapping it in backslash-parentheses, like \( F = ma \), right in the middle of a sentence.</p>
+
+                </div>
+            </div>
 
         <div id="personal-projects" class="content-section">
             <p>Details on hackathon builds and mechatronic designs will be archived here.</p>
