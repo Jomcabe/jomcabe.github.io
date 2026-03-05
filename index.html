@@ -227,7 +227,8 @@
             margin: 1.5rem 0;
             background-color: #000;
         }
-        .video-container iframe {
+        .video-container iframe,
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
@@ -257,6 +258,15 @@
             color: var(--accent);
             text-decoration: underline;
             font-size: 0.95rem;
+        }
+
+        /* --- DOWNLOAD LINK STYLING --- */
+        .download-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: underline;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
 
         /* --- FOOTER STYLING --- */
@@ -319,9 +329,9 @@
             <span class="lang-content" data-lang="de">Blog</span>
         </a>
         <a class="nav-link" onclick="showSection('personal-projects', this)">
-            <span class="lang-content active-lang" data-lang="en">Personal Projects</span>
-            <span class="lang-content" data-lang="es">Proyectos Personales</span>
-            <span class="lang-content" data-lang="de">Eigene Projekte</span>
+            <span class="lang-content active-lang" data-lang="en">Projects</span>
+            <span class="lang-content" data-lang="es">Proyectos</span>
+            <span class="lang-content" data-lang="de">Projekte</span>
         </a>
         <a class="nav-link" onclick="showSection('academics', this)">
             <span class="lang-content active-lang" data-lang="en">Academics</span>
@@ -498,6 +508,41 @@
                     <p>Bei diesem Projekt waren Diego Salcedo und ich im selben Edgerton (Makerspace am MIT) Kurs für Interphase Edge. Wir dachten, es wäre eine großartige Idee, einen Airhockey-Tisch mit einer einzigartigen V-Form zu bauen. Nach einer Million Fehlversuchen stellten wir fest, dass es praktisch unmöglich sein würde, das Gewünschte in so kurzer Zeit und neben vielen schwierigen Kursen zu realisieren.</p>
                     <p>Stattdessen bauten wir unseren eigenen Airhockey-Tisch von Grund auf neu, wobei Diego an der maschinellen Bearbeitung und ich an den elektronischen Komponenten arbeitete. Ich habe es geschafft, 'sicher' ein 120-V-AC-OEM-Gebläse an den Tisch anzuschließen, es an den Strom und einen Not-Aus-Schalter zu koppeln, um Luft durch die vielen Löcher zu blasen, die Diego gebohrt hatte. Danach habe ich ein Protoboard und Infrarotsensoren verwendet, um eine Lichtschranke und eine Anzeigetafel zu bauen, um den Spielstand zu verfolgen.</p>
                     <p>Alles in allem hat mir dieses Projekt definitiv am meisten Spaß gemacht!</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h2>8.012 Final Project</h2>
+                
+                <div class="video-container">
+                    <video controls>
+                        <source src="8012Project.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="video-container">
+                    <video controls>
+                        <source src="8012Project2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <iframe src="8012Report.pdf" class="resume-container" style="margin-bottom: 1rem;">
+                    This browser does not support embedded PDFs. Please use the link below to download.
+                </iframe>
+                <a href="8012Report.pdf" download class="download-link">Download Project Report (PDF)</a>
+
+                <div class="lang-content active-lang" data-lang="en">
+                    <p>This was my final project for 8.012, it was revolving a problem from a Problem Set that felt very counterintuitive even if the math checked out. We made a physical model and coded a simulation (with a BIT of exaggeration) to see if the phenomenon was real and if it could be explained better. The problem was of two beads on this ring, it is said that if the beads were a certain mass or greater, then the ring would 'jump' up at a certain angle. We tested this in real life (after hours of making models that didn't work and using ancient scales) and found that the phenomenon did actually happen, seeing it made it feel more intuitive. We submitted our report and ended up getting selected to present in front of the entire class (Shoutout to Kaku & Ishan)!</p>
+                </div>
+
+                <div class="lang-content" data-lang="es">
+                    <p>Este fue mi proyecto final para 8.012, se trataba de un problema de un conjunto de problemas (Problem Set) que se sentía muy contraintuitivo aunque las matemáticas cuadraran. Hicimos un modelo físico y programamos una simulación (con UN POCO de exageración) para ver si el fenómeno era real y si podía explicarse mejor. El problema trataba de dos cuentas en un anillo; se dice que si las cuentas tenían una masa determinada o mayor, el anillo 'saltaría' hacia arriba en cierto ángulo. Lo probamos en la vida real (después de horas haciendo modelos que no funcionaban y usando balanzas antiguas) y descubrimos que el fenómeno realmente ocurría; verlo lo hizo sentir más intuitivo. Presentamos nuestro informe y terminamos siendo seleccionados para presentar frente a toda la clase (¡Un saludo a Kaku e Ishan!).</p>
+                </div>
+
+                <div class="lang-content" data-lang="de">
+                    <p>Dies war mein Abschlussprojekt für 8.012. Es drehte sich um ein Problem aus einem Aufgabenblatt (Problem Set), das sich sehr kontraintuitiv anfühlte, obwohl die Mathematik stimmte. Wir bauten ein physisches Modell und programmierten eine Simulation (mit ein BISSCHEN Übertreibung), um zu sehen, ob das Phänomen real war und ob es besser erklärt werden konnte. Das Problem handelte von zwei Perlen auf einem Ring – es heißt, dass der Ring bei einer bestimmten oder größeren Masse der Perlen in einem bestimmten Winkel nach oben 'springen' würde. Wir testeten dies im echten Leben (nach stundenlangem Basteln an Modellen, die nicht funktionierten, und der Verwendung uralter Waagen) und stellten fest, dass das Phänomen tatsächlich auftrat; es zu sehen machte es intuitiver. Wir reichten unseren Bericht ein und wurden ausgewählt, vor der gesamten Klasse zu präsentieren (Grüße an Kaku & Ishan)!</p>
                 </div>
             </div>
 
