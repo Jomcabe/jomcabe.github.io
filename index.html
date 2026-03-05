@@ -451,4 +451,59 @@
                 <p>Notes and coursework related to Materials Science, classical mechanics, and electromagnetism.</p>
             </div>
             <div class="lang-content" data-lang="es">
-                <p>Notas y trabajos de curso relacionados con la Ciencia de Materiales
+                <p>Notas y trabajos de curso relacionados con la Ciencia de Materiales, la mecánica clásica y el electromagnetismo.</p>
+            </div>
+            <div class="lang-content" data-lang="de">
+                <p>Notizen und Kursarbeiten aus den Bereichen Materialwissenschaften, klassische Mechanik und Elektromagnetismus.</p>
+            </div>
+        </div>
+
+        <div id="docs" class="content-section">
+            <div class="lang-content active-lang" data-lang="en">
+                <p>Documentation and standard operating procedures for various laboratory processes.</p>
+            </div>
+            <div class="lang-content" data-lang="es">
+                <p>Documentación y procedimientos operativos estándar para diversos procesos de laboratorio.</p>
+            </div>
+            <div class="lang-content" data-lang="de">
+                <p>Dokumentation und Standardarbeitsanweisungen für verschiedene Laborprozesse.</p>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <div class="contact-links">
+            <a href="mailto:Jocabe@mit.edu">Jocabe@mit.edu</a> &bull; 
+            <a href="tel:3524619325">352-461-9325</a> &bull; 
+            <a href="https://www.linkedin.com/in/jomcabel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <p class="copyright">&copy; 2026 Jose Carvajal-Beltran.</p>
+    </footer>
+
+    <script>
+        // Tab switching logic
+        function showSection(sectionId, element) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            element.classList.add('active-nav');
+        }
+
+        // Language switching logic
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-content').forEach(el => {
+                el.classList.remove('active-lang');
+                if (el.getAttribute('data-lang') === lang) {
+                    el.classList.add('active-lang');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
