@@ -644,6 +644,18 @@
         .download-link::before { content: "⇣"; }
         .fallback-link::before { content: "⤓"; }
  
+        /* Figure-style caption under videos */
+        .video-caption {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin: -12px 0 20px;
+            padding-left: 12px;
+            border-left: 1px solid var(--border-laser);
+        }
+ 
         /* =========== RESUME =========== */
         .resume-container {
             width: 100%;
@@ -769,9 +781,9 @@
                 </div>
  
                 <div class="home-text-block">
-                    <p>Welcome. I'm an undergraduate at MIT studying Materials Science &amp; Engineering.</p>
-                    <p>My current research focuses on optimizing light-dose orientation algorithms for Volumetric Additive Manufacturing — a printing technique where collimated beams converge inside a rotating vat of photoresin to sculpt geometry out of light. I enjoy the slow satisfaction of rigorous problem-solving.</p>
-                    <p>Off the bench, you'll find me on a soccer pitch, hanging out around campus with friends, or overbuilding custom hardware for the fun of it.</p>
+                    <p>Welcome. I am an undergraduate at MIT studying Materials Science &amp; Engineering.</p>
+                    <p>My current research focuses on optimizing light-dose orientation algorithms for Volumetric Additive Manufacturing — a printing technique where collimated beams converge inside a rotating vat of photoresin to sculpt geometry out of light. Whether wrestling with multivariable calculus, chasing voxel-level print fidelity, or debugging electronics on a breadboard at 2am, I enjoy the slow satisfaction of rigorous problem-solving.</p>
+                    <p>Off the bench, you'll find me on a soccer pitch, tensioning a recurve bow, or overbuilding custom hardware for the fun of it.</p>
  
                     <div class="specs-panel">
                         <div class="spec-item">
@@ -780,7 +792,7 @@
                         </div>
                         <div class="spec-item">
                             <span class="spec-label">Focus</span>
-                            <span class="spec-value">Lasers and VAM</span>
+                            <span class="spec-value">VAM · Light Dose Opt.</span>
                         </div>
                         <div class="spec-item">
                             <span class="spec-label">Location</span>
@@ -788,7 +800,7 @@
                         </div>
                         <div class="spec-item">
                             <span class="spec-label">Status</span>
-                            <span class="spec-value"><span class="accent">◆</span> Active</span>
+                            <span class="spec-value"><span class="accent">◆</span> Operational</span>
                         </div>
                     </div>
                 </div>
@@ -899,6 +911,15 @@
                 <span class="module-tag">RESEARCH 05.003 · ACTIVE</span>
                 <h2>UROP: Optimal Orientation for VAM</h2>
                 <div class="sub-meta">Volumetric Additive Manufacturing · Light Dose Optimization</div>
+ 
+                <div class="video-container">
+                    <video controls poster="">
+                        <source src="VAM_Demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-caption">FIG. 05.003 — How Volumetric Additive Manufacturing works, visualized.</div>
+ 
                 <p>This is a current research project that I am undertaking, it involves a really cool 3D manufacturing technique that is known as Volumetric Additive Manufacturing (VAM). The most basic way to explain it is to say that light from a projector 'shoots' a bunch of 2D photos at a vat of resin that hardens with light. The vat spins and for each degree, a new photo is projected. All of these projections form a 3D object. What I am setting out to determine is whether the orientation ($\phi$ and $\theta$) have any effect on the resulting quality of the print due to dosage of light. I will update this section more and I learn and undertake this challenge more!</p>
             </div>
  
@@ -978,3 +999,4 @@
     </script>
 </body>
 </html>
+ 
