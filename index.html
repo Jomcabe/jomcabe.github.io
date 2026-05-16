@@ -109,7 +109,7 @@
             inset: -50%;
             pointer-events: none;
             z-index: 9997;
-            opacity: 0.08;
+            opacity: 0.04;
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
             animation: grainShift 8s steps(6) infinite;
         }
@@ -743,8 +743,6 @@
         <div class="status">
             <span><span class="status-dot"></span>BEAM ACTIVE</span>
             <span>λ = <span class="wavelength-readout">632.8nm</span></span>
-            <span class="meta">MODE: TEM₀₀</span>
-            <span class="meta">LOC: 77 MASS AVE</span>
         </div>
     </div>
  
@@ -767,7 +765,6 @@
         <a class="nav-link" data-idx="03" onclick="showSection('blog', this)">Log</a>
         <a class="nav-link" data-idx="04" onclick="showSection('personal-projects', this)">Projects</a>
         <a class="nav-link" data-idx="05" onclick="showSection('academics', this)">Academics</a>
-        <a class="nav-link" data-idx="06" onclick="showSection('docs', this)">Docs</a>
     </nav>
  
     <main>
@@ -827,7 +824,6 @@
             <div class="blog-post">
                 <h2>Understanding the Fourier Slice Theorem</h2>
                 <span class="blog-date">2026.03.05 // ENTRY_001</span>
-                <p>This is a sample blog post.</p>
                 <p>The Fourier Slice Theorem (also known as the Projection-Slice Theorem) is a fundamental principle underpinning medical imaging modalities like CT scans. In simple terms, it states that the 1D Fourier transform of a parallel projection of a 2D object is exactly equal to a 1D slice of the 2D Fourier transform of that object through its origin.</p>
                 <p>Mathematically, let's represent an object's density as a 2D function $ f(x, y) $. If we take a projection of this object along the y-axis, we integrate over $ y $ to get a 1D function $ p(x) $:</p>
                 <p>$$ p(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$</p>
@@ -856,8 +852,8 @@
                 </div>
                 <a href="https://www.youtube.com/watch?v=zGISlFQRvHM" target="_blank" rel="noopener noreferrer" class="youtube-link">Watch on YouTube</a>
  
-                <p>In this project, Diego Salcedo and I were both in the same Edgerton (Makerspace at MIT) section for Interphase Edge. We decided that it would be a great idea to build an air hockey table with unique V shape. After going through a million failures, we found that it would be virtually impossible to create what we wanted to with a very short timespan and while taking many difficult courses.</p>
-                <p>Instead, we created our own air hockey table from scratch, with Diego working on the machining aspects and myself working on the electronics components. I managed to 'safely' configure a 120V AC OEM blower to the table and hook it up to power and an e-stop to blow air through the many holes Diego drilled. After this, I used a protoboard and infrared sensors to create a beam-break sensor and a scoreboard to track who is winning.</p>
+                <p>In this project, Diego Salcedo and I were both in the same Edgerton (Makerspace at MIT) section for Interphase Edge. We decided that it would be a great idea to build an air hockey table with a unique V shape. After going through many iterations, we found that it would be virtually impossible to create what we wanted to within a very short timespan and while taking many difficult courses.</p>
+                <p>Instead, we created our own air hockey table from scratch, with Diego working on the machining aspects and myself working on the electronics components. I configured a 120V AC OEM blower to the table and hooked it up to power and an e-stop to blow air through the many holes Diego drilled. After this, I used a protoboard and infrared sensors to create a beam-break sensor and a scoreboard to track who is winning.</p>
                 <p>All-in-all, this is definitely the most fun I have had creating a project!</p>
             </div>
  
@@ -897,14 +893,14 @@
                 <span class="module-tag">COURSE 05.001</span>
                 <h2>8.012 Classical Mechanics</h2>
                 <div class="sub-meta">MIT Physics · Advanced Track</div>
-                <p>Definitely the hardest and most time consuming endeavor so far in my journey (albeit the journey has just started). This class is jokingly called 'physics for masochists', and it tracks. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused very heavily on some heavy calculus as well as vector algebra (in VERY ugly ways).</p>
+                <p>Definitely the hardest and most time-consuming endeavor so far in my journey (albeit the journey has just started). This class is informally called 'physics for masochists' — and for good reason. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused heavily on advanced calculus and vector algebra.</p>
             </div>
  
             <div class="module">
                 <span class="module-tag">COURSE 05.002</span>
                 <h2>6.2020 Electronics Project Laboratory</h2>
                 <div class="sub-meta">MIT EECS · Prof. Jim Bales</div>
-                <p>One of the most interactive and interesting classes I've taken. Taught by the great Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week. My second favorite moment was laughing for a solid 30 minutes with the two other people in my group because absolutely nothing was working and the software kept crashing.</p>
+                <p>One of the most interactive and interesting classes I've taken. Taught by Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week. A memorable lab session involved our entire group troubleshooting a stubborn circuit that simply refused to cooperate — a rite of passage for any engineer.</p>
             </div>
  
             <div class="module">
@@ -929,13 +925,6 @@
                 <div class="sub-meta">Univ. Anahuac Mérida · Carbon Nanostructures · Summer 2026</div>
                 <p>This is the project I will be up against over the summer as I travel to Yucatan, Mexico to do research with a team in the University of Anahuac Merida. I have been dipping my toes into the existing research on this and will update this as I explore over the summer.</p>
             </div>
-        </div>
- 
-        <!-- DOCS -->
-        <div id="docs" class="content-section">
-            <h2 class="section-heading">Docs</h2>
-            <div class="section-subheading">STANDARD OPERATING PROCEDURES / 06</div>
-            <p>Documentation and standard operating procedures for various laboratory processes.</p>
         </div>
  
     </main>
