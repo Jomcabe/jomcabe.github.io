@@ -109,7 +109,7 @@
             inset: -50%;
             pointer-events: none;
             z-index: 9997;
-            opacity: 0.08;
+            opacity: 0.04;
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
             animation: grainShift 8s steps(6) infinite;
         }
@@ -729,6 +729,221 @@
             nav a, .contact-links a, .youtube-link, .download-link, .fallback-link { cursor: pointer; }
             button, a { cursor: pointer; }
         }
+
+        /* -------- Typewriter cursor -------- */
+        .typewriter-cursor {
+            color: var(--laser-red);
+            font-style: normal;
+            animation: cursorBlink 0.7s step-end infinite;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+
+        /* -------- Scroll progress beam -------- */
+        .scroll-beam {
+            position: fixed;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--laser-red);
+            box-shadow: 0 0 6px var(--laser-red), 0 0 16px var(--laser-red-glow);
+            z-index: 11;
+            transition: width 0.12s linear;
+            pointer-events: none;
+        }
+
+        /* -------- Terminal hint in instrument bar -------- */
+        .terminal-hint {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            cursor: none;
+            transition: color 0.2s, text-shadow 0.2s;
+            user-select: none;
+        }
+        .terminal-hint:hover {
+            color: var(--laser-red);
+            text-shadow: 0 0 8px var(--laser-red);
+        }
+
+        /* -------- Terminal overlay -------- */
+        .terminal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 7, 0.95);
+            z-index: 20000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+        }
+        .terminal-window {
+            width: min(800px, 94vw);
+            border: 1px solid var(--border-laser);
+            background: var(--bg-panel);
+            display: flex;
+            flex-direction: column;
+            box-shadow:
+                0 0 40px rgba(255, 45, 66, 0.15),
+                0 0 100px rgba(255, 45, 66, 0.05),
+                inset 0 0 40px rgba(0, 0, 0, 0.4);
+        }
+        .terminal-titlebar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-laser);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--laser-red);
+            background: rgba(255, 45, 66, 0.04);
+        }
+        .terminal-titlebar-close {
+            color: var(--text-dim);
+            cursor: none;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .terminal-titlebar-close:hover { color: var(--laser-red); }
+        .terminal-output {
+            overflow-y: auto;
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.75;
+            min-height: 200px;
+            max-height: 400px;
+        }
+        .terminal-output .t-cmd { color: var(--text-primary); }
+        .terminal-output .t-out { color: var(--text-secondary); }
+        .terminal-output .t-err { color: #ff6060; }
+        .terminal-output .t-ok  { color: var(--laser-green); }
+        .terminal-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-top: 1px solid var(--border-thin);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+        .terminal-prompt-label {
+            color: var(--laser-red);
+            white-space: nowrap;
+            flex-shrink: 0;
+            user-select: none;
+        }
+        #termInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            caret-color: var(--laser-red);
+            cursor: none;
+        }
+        #termInput::placeholder { color: var(--text-dim); }
+
+        /* -------- Sound toggle button -------- */
+        .meta-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .sound-toggle {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            cursor: none;
+            transition: color 0.2s, text-shadow 0.2s;
+            user-select: none;
+        }
+        .sound-toggle.active {
+            color: var(--laser-green);
+            text-shadow: 0 0 8px var(--laser-green);
+        }
+        .sound-toggle:hover { color: var(--laser-red); text-shadow: 0 0 8px var(--laser-red); }
+
+        /* -------- Nav hover preview -------- */
+        .nav-preview {
+            position: fixed;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            overflow: hidden;
+        }
+        .nav-preview.visible { opacity: 1; }
+        #navPreviewInner {
+            position: absolute;
+            top: 180px;
+            left: 0;
+            right: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+            filter: blur(8px);
+            opacity: 0.13;
+            transform: scale(0.97);
+            transition: transform 0.35s ease;
+        }
+        .nav-preview.visible #navPreviewInner { transform: scale(1); }
+
+        /* -------- Glitch overlay -------- */
+        .glitch-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 30000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: glitchOverlayAnim 2.8s forwards;
+        }
+        @keyframes glitchOverlayAnim {
+            0%   { opacity: 0; background: transparent; }
+            5%   { opacity: 1; background: rgba(255,45,66,0.04); }
+            20%  { clip-path: inset(10% 0 30% 0); }
+            21%  { clip-path: inset(0); }
+            40%  { clip-path: inset(55% 0 8% 0); }
+            41%  { clip-path: inset(0); }
+            85%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .glitch-label {
+            font-family: var(--font-mono);
+            font-size: clamp(1.1rem, 3.5vw, 2.4rem);
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--laser-red);
+            text-shadow:
+                0 0 20px var(--laser-red),
+                0 0 60px var(--laser-red-glow),
+                5px 0 0 rgba(91,240,255,0.5),
+                -5px 0 0 rgba(70,255,138,0.4);
+            animation: glitchLabelAnim 2.8s forwards;
+        }
+        @keyframes glitchLabelAnim {
+            0%  { opacity: 0; transform: translateX(0); }
+            5%  { opacity: 1; transform: translateX(-8px) skewX(4deg); }
+            10% { transform: translateX(8px) skewX(-4deg); }
+            15% { transform: translateX(-4px) skewX(2deg); }
+            20% { transform: translateX(4px) skewX(-2deg); }
+            30% { transform: translateX(0); opacity: 1; }
+            85% { transform: translateX(0); opacity: 1; }
+            90% { transform: translateX(-5px) skewX(3deg); opacity: 0.6; }
+            100% { transform: translateX(0); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -737,14 +952,20 @@
     <div class="scanlines"></div>
     <div class="grain"></div>
     <div class="cursor-dot" id="cursorDot"></div>
- 
+    <div class="scroll-beam" id="scrollBeam"></div>
+    <div id="navPreview" class="nav-preview" aria-hidden="true">
+        <div id="navPreviewInner"></div>
+    </div>
+
     <!-- Instrument status bar -->
     <div class="instrument-bar">
         <div class="status">
             <span><span class="status-dot"></span>BEAM ACTIVE</span>
             <span>λ = <span class="wavelength-readout">632.8nm</span></span>
-            <span class="meta">MODE: TEM₀₀</span>
-            <span class="meta">LOC: 77 MASS AVE</span>
+        </div>
+        <div class="meta-controls">
+            <span class="sound-toggle" id="soundToggle" onclick="toggleSound()">[♦] SOUND: OFF</span>
+            <span class="terminal-hint" onclick="openTerminal()">[/] TERMINAL</span>
         </div>
     </div>
  
@@ -767,7 +988,6 @@
         <a class="nav-link" data-idx="03" onclick="showSection('blog', this)">Log</a>
         <a class="nav-link" data-idx="04" onclick="showSection('personal-projects', this)">Projects</a>
         <a class="nav-link" data-idx="05" onclick="showSection('academics', this)">Academics</a>
-        <a class="nav-link" data-idx="06" onclick="showSection('docs', this)">Docs</a>
     </nav>
  
     <main>
@@ -827,7 +1047,6 @@
             <div class="blog-post">
                 <h2>Understanding the Fourier Slice Theorem</h2>
                 <span class="blog-date">2026.03.05 // ENTRY_001</span>
-                <p>This is a sample blog post.</p>
                 <p>The Fourier Slice Theorem (also known as the Projection-Slice Theorem) is a fundamental principle underpinning medical imaging modalities like CT scans. In simple terms, it states that the 1D Fourier transform of a parallel projection of a 2D object is exactly equal to a 1D slice of the 2D Fourier transform of that object through its origin.</p>
                 <p>Mathematically, let's represent an object's density as a 2D function $ f(x, y) $. If we take a projection of this object along the y-axis, we integrate over $ y $ to get a 1D function $ p(x) $:</p>
                 <p>$$ p(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$</p>
@@ -856,8 +1075,8 @@
                 </div>
                 <a href="https://www.youtube.com/watch?v=zGISlFQRvHM" target="_blank" rel="noopener noreferrer" class="youtube-link">Watch on YouTube</a>
  
-                <p>In this project, Diego Salcedo and I were both in the same Edgerton (Makerspace at MIT) section for Interphase Edge. We decided that it would be a great idea to build an air hockey table with unique V shape. After going through a million failures, we found that it would be virtually impossible to create what we wanted to with a very short timespan and while taking many difficult courses.</p>
-                <p>Instead, we created our own air hockey table from scratch, with Diego working on the machining aspects and myself working on the electronics components. I managed to 'safely' configure a 120V AC OEM blower to the table and hook it up to power and an e-stop to blow air through the many holes Diego drilled. After this, I used a protoboard and infrared sensors to create a beam-break sensor and a scoreboard to track who is winning.</p>
+                <p>In this project, Diego Salcedo and I were both in the same Edgerton (Makerspace at MIT) section for Interphase Edge. We decided that it would be a great idea to build an air hockey table with a unique V shape. After going through many iterations, we found that it would be virtually impossible to create what we wanted to within a very short timespan and while taking many difficult courses.</p>
+                <p>Instead, we created our own air hockey table from scratch, with Diego working on the machining aspects and myself working on the electronics components. I configured a 120V AC OEM blower to the table and hooked it up to power and an e-stop to blow air through the many holes Diego drilled. After this, I used a protoboard and infrared sensors to create a beam-break sensor and a scoreboard to track who is winning.</p>
                 <p>All-in-all, this is definitely the most fun I have had creating a project!</p>
             </div>
  
@@ -897,14 +1116,14 @@
                 <span class="module-tag">COURSE 05.001</span>
                 <h2>8.012 Classical Mechanics</h2>
                 <div class="sub-meta">MIT Physics · Advanced Track</div>
-                <p>Definitely the hardest and most time consuming endeavor so far in my journey (albeit the journey has just started). This class is jokingly called 'physics for masochists', and it tracks. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused very heavily on some heavy calculus as well as vector algebra (in VERY ugly ways).</p>
+                <p>Definitely the hardest and most time-consuming endeavor so far in my journey (albeit the journey has just started). This class is informally called 'physics for masochists' — and for good reason. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused heavily on advanced calculus and vector algebra.</p>
             </div>
  
             <div class="module">
                 <span class="module-tag">COURSE 05.002</span>
                 <h2>6.2020 Electronics Project Laboratory</h2>
                 <div class="sub-meta">MIT EECS · Prof. Jim Bales</div>
-                <p>One of the most interactive and interesting classes I've taken. Taught by the great Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week. My second favorite moment was laughing for a solid 30 minutes with the two other people in my group because absolutely nothing was working and the software kept crashing.</p>
+                <p>One of the most interactive and interesting classes I've taken. Taught by Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week. A memorable lab session involved our entire group troubleshooting a stubborn circuit that simply refused to cooperate — a rite of passage for any engineer.</p>
             </div>
  
             <div class="module">
@@ -931,13 +1150,6 @@
             </div>
         </div>
  
-        <!-- DOCS -->
-        <div id="docs" class="content-section">
-            <h2 class="section-heading">Docs</h2>
-            <div class="section-subheading">STANDARD OPERATING PROCEDURES / 06</div>
-            <p>Documentation and standard operating procedures for various laboratory processes.</p>
-        </div>
- 
     </main>
  
     <footer>
@@ -950,7 +1162,43 @@
         <div class="copyright">© 2026 · Jose Carvajal-Beltran · All photons reserved</div>
     </footer>
  
+    <!-- Terminal overlay -->
+    <div id="terminal" class="terminal-overlay" aria-hidden="true">
+        <div class="terminal-window">
+            <div class="terminal-titlebar">
+                <span>OPTICAL BENCH · TERMINAL v1.0</span>
+                <span class="terminal-titlebar-close" onclick="closeTerminal()">[ ESC ]</span>
+            </div>
+            <div class="terminal-output" id="termOutput"></div>
+            <div class="terminal-input-row">
+                <span class="terminal-prompt-label">OPERATOR@bench:~$</span>
+                <input type="text" id="termInput" autocomplete="off" spellcheck="false" placeholder="type a command..." />
+            </div>
+        </div>
+    </div>
+
     <script>
+        // -------- Shared wavelength data --------
+        const WAVELENGTHS = [
+            { nm: '632.8nm', color: '#ff2d42', glow: '#ff6070', label: 'HeNe red' },
+            { nm: '532.0nm', color: '#46ff8a', glow: '#88ffb0', label: 'DPSS green' },
+            { nm: '488.0nm', color: '#5bf0ff', glow: '#88f8ff', label: 'Ar-ion cyan' },
+            { nm: '405.0nm', color: '#b07cff', glow: '#c8a0ff', label: 'violet diode' },
+        ];
+        let wIdx = 0;
+
+        function applyWavelength(w) {
+            document.documentElement.style.setProperty('--laser-red', w.color);
+            document.documentElement.style.setProperty('--laser-red-glow', w.glow);
+            document.documentElement.style.setProperty('--border-laser', w.color + '59');
+            document.documentElement.style.setProperty('--grid-line', w.color + '0f');
+            const ro = document.querySelector('.wavelength-readout');
+            if (ro) ro.textContent = w.nm;
+        }
+
+        // -------- Scroll beam reference --------
+        let scrollBeam = null;
+
         // -------- Tab switching --------
         function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
@@ -958,45 +1206,364 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
             element.classList.add('active-nav');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (scrollBeam) scrollBeam.style.width = '0%';
         }
- 
+
         // -------- Custom laser cursor --------
         const dot = document.getElementById('cursorDot');
         document.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px';
             dot.style.top = e.clientY + 'px';
         });
- 
-        // Hover state
         document.querySelectorAll('a, button, input').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
         });
- 
+
         // -------- Wavelength easter egg --------
-        // Click the wavelength readout to cycle through laser colors
-        const wavelengths = [
-            { nm: '632.8nm', color: '#ff2d42', glow: '#ff6070' },   // HeNe red
-            { nm: '532.0nm', color: '#46ff8a', glow: '#88ffb0' },   // DPSS green
-            { nm: '488.0nm', color: '#5bf0ff', glow: '#88f8ff' },   // Ar-ion cyan
-            { nm: '405.0nm', color: '#b07cff', glow: '#c8a0ff' },   // Violet diode
-        ];
-        let wIdx = 0;
         const readout = document.querySelector('.wavelength-readout');
         if (readout) {
             readout.style.cursor = 'none';
             readout.addEventListener('click', (e) => {
                 e.stopPropagation();
-                wIdx = (wIdx + 1) % wavelengths.length;
-                const w = wavelengths[wIdx];
-                document.documentElement.style.setProperty('--laser-red', w.color);
-                document.documentElement.style.setProperty('--laser-red-glow', w.glow);
-                document.documentElement.style.setProperty('--border-laser', w.color + '59');
-                document.documentElement.style.setProperty('--grid-line', w.color + '0f');
-                readout.textContent = w.nm;
+                wIdx = (wIdx + 1) % WAVELENGTHS.length;
+                applyWavelength(WAVELENGTHS[wIdx]);
             });
         }
+
+        // -------- Typewriter effect --------
+        function typewriter(el, text, speed) {
+            speed = speed || 26;
+            el.textContent = '';
+            const cursor = document.createElement('span');
+            cursor.className = 'typewriter-cursor';
+            cursor.textContent = '|';
+            el.appendChild(cursor);
+            let i = 0;
+            const timer = setInterval(() => {
+                el.insertBefore(document.createTextNode(text[i++]), cursor);
+                if (i >= text.length) {
+                    clearInterval(timer);
+                    setTimeout(() => cursor.remove(), 1400);
+                }
+            }, speed);
+        }
+
+        // -------- Scroll progress beam --------
+        window.addEventListener('scroll', () => {
+            if (!scrollBeam) return;
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+            scrollBeam.style.width = pct + '%';
+        }, { passive: true });
+
+        // -------- Terminal --------
+        const WELCOME_LINES = [
+            { t: '\u250c\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2510', c: 't-ok' },
+            { t: '\u2502  OPTICAL BENCH  \u00b7  COMMAND INTERFACE  v1.0    \u2502', c: 't-ok' },
+            { t: '\u2502  Type "help" for available commands.           \u2502', c: 't-ok' },
+            { t: '\u2514\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2518', c: 't-ok' },
+            { t: '', c: '' },
+        ];
+        const NAV_MAP = {
+            home: 'home', resume: 'resume',
+            log: 'blog', blog: 'blog',
+            projects: 'personal-projects', academics: 'academics',
+        };
+
+        function termPrint(lines) {
+            const out = document.getElementById('termOutput');
+            if (!out) return;
+            lines.forEach(item => {
+                const div = document.createElement('div');
+                div.textContent = typeof item === 'string' ? item : item.t;
+                if (typeof item === 'object' && item.c) div.className = item.c;
+                out.appendChild(div);
+            });
+            out.scrollTop = out.scrollHeight;
+        }
+
+        function openTerminal() {
+            const term = document.getElementById('terminal');
+            if (!term) return;
+            term.style.display = 'flex';
+            document.getElementById('termOutput').innerHTML = '';
+            termPrint(WELCOME_LINES);
+            setTimeout(() => document.getElementById('termInput')?.focus(), 30);
+        }
+
+        function closeTerminal() {
+            const term = document.getElementById('terminal');
+            if (!term) return;
+            term.style.display = 'none';
+            const inp = document.getElementById('termInput');
+            if (inp) inp.value = '';
+        }
+
+        function handleCommand(raw) {
+            const parts = raw.trim().split(/\s+/);
+            const verb = (parts[0] || '').toLowerCase();
+            const args = parts.slice(1);
+            termPrint([{ t: 'OPERATOR@bench:~$ ' + raw, c: 't-cmd' }]);
+            if (!verb) return;
+
+            switch (verb) {
+                case 'help':
+                    termPrint([
+                        { t: 'AVAILABLE COMMANDS:', c: 't-ok' },
+                        { t: '  help                \u2014 this message', c: 't-out' },
+                        { t: '  whoami              \u2014 operator identification', c: 't-out' },
+                        { t: '  ls                  \u2014 list sections', c: 't-out' },
+                        { t: '  goto <section>      \u2014 navigate the site', c: 't-out' },
+                        { t: '  wavelength <nm>     \u2014 set laser wavelength', c: 't-out' },
+                        { t: '  status              \u2014 system readout', c: 't-out' },
+                        { t: '  sound               \u2014 toggle ambient sound', c: 't-out' },
+                        { t: '  glitch              \u2014 ???', c: 't-out' },
+                        { t: '  clear               \u2014 clear terminal', c: 't-out' },
+                        { t: '  exit                \u2014 close terminal', c: 't-out' },
+                        { t: '', c: '' },
+                    ]);
+                    break;
+                case 'whoami':
+                    termPrint([
+                        { t: 'OPERATOR : Jose Carvajal-Beltran', c: 't-out' },
+                        { t: 'INSTITUTE: Massachusetts Institute of Technology', c: 't-out' },
+                        { t: 'DEPT     : Materials Science & Engineering (Course 3)', c: 't-out' },
+                        { t: 'RESEARCH : Volumetric Additive Manufacturing \u00b7 Light-dose optimization', c: 't-out' },
+                        { t: 'STATUS   : \u25c6 ACTIVE', c: 't-ok' },
+                        { t: '', c: '' },
+                    ]);
+                    break;
+                case 'ls':
+                    termPrint([
+                        { t: '01  home        operator profile', c: 't-out' },
+                        { t: '02  resume      curriculum vitae', c: 't-out' },
+                        { t: '03  log         transmissions', c: 't-out' },
+                        { t: '04  projects    apparatus catalog', c: 't-out' },
+                        { t: '05  academics   coursework & research', c: 't-out' },
+                        { t: '', c: '' },
+                    ]);
+                    break;
+                case 'goto': case 'cd': case 'nav': {
+                    const target = (args[0] || '').toLowerCase();
+                    if (!target) {
+                        termPrint([{ t: 'usage: goto <section>  (run "ls" for options)', c: 't-err' }, { t: '', c: '' }]);
+                        break;
+                    }
+                    const sid = NAV_MAP[target];
+                    if (!sid) {
+                        termPrint([{ t: 'ERROR: "' + target + '" not found. Run "ls" for options.', c: 't-err' }, { t: '', c: '' }]);
+                        break;
+                    }
+                    const navLink = Array.from(document.querySelectorAll('.nav-link'))
+                        .find(a => (a.getAttribute('onclick') || '').includes("'" + sid + "'"));
+                    termPrint([{ t: '> NAVIGATING TO ' + target.toUpperCase() + '...', c: 't-ok' }, { t: '', c: '' }]);
+                    closeTerminal();
+                    if (navLink) navLink.click();
+                    break;
+                }
+                case 'wavelength': case 'lambda': {
+                    const nm = parseFloat(args[0]);
+                    if (!nm || isNaN(nm)) {
+                        termPrint([{ t: 'usage: wavelength <nm>  (e.g. wavelength 532)', c: 't-err' }, { t: '', c: '' }]);
+                        break;
+                    }
+                    const closest = WAVELENGTHS.reduce((a, b) =>
+                        Math.abs(parseFloat(b.nm) - nm) < Math.abs(parseFloat(a.nm) - nm) ? b : a
+                    );
+                    wIdx = WAVELENGTHS.indexOf(closest);
+                    applyWavelength(closest);
+                    termPrint([{ t: '> WAVELENGTH SET: ' + closest.nm + ' (' + closest.label + ')', c: 't-ok' }, { t: '', c: '' }]);
+                    break;
+                }
+                case 'status': case 'ping': {
+                    const wl = document.querySelector('.wavelength-readout')?.textContent || '632.8nm';
+                    termPrint([
+                        { t: 'SYSTEM STATUS:', c: 't-ok' },
+                        { t: '  BEAM        \u25c6 ACTIVE', c: 't-out' },
+                        { t: '  WAVELENGTH  ' + wl, c: 't-out' },
+                        { t: '  RESIN VAT   \u25c6 ROTATING', c: 't-out' },
+                        { t: '  OPERATOR    \u25c6 ONLINE', c: 't-out' },
+                        { t: '', c: '' },
+                    ]);
+                    break;
+                }
+                case 'sound': {
+                    const on = toggleSound();
+                    termPrint([{ t: '> AMBIENT SOUND: ' + (on ? 'ON' : 'OFF'), c: 't-ok' }, { t: '', c: '' }]);
+                    break;
+                }
+                case 'glitch':
+                    closeTerminal();
+                    setTimeout(triggerGlitch, 200);
+                    break;
+                case 'clear':
+                    document.getElementById('termOutput').innerHTML = '';
+                    break;
+                case 'exit': case 'q': case 'quit':
+                    closeTerminal();
+                    break;
+                default:
+                    termPrint([{ t: verb + ': command not found. Type "help" for commands.', c: 't-err' }, { t: '', c: '' }]);
+            }
+        }
+
+        // -------- DOMContentLoaded init --------
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typewriter on hero tagline
+            const tagline = document.querySelector('.hero-tagline');
+            if (tagline) typewriter(tagline, tagline.textContent.trim());
+
+            // Position scroll beam flush below the instrument bar
+            scrollBeam = document.getElementById('scrollBeam');
+            const instrBar = document.querySelector('.instrument-bar');
+            if (scrollBeam && instrBar) {
+                scrollBeam.style.top = instrBar.getBoundingClientRect().height + 'px';
+            }
+
+            // Terminal input key handler
+            const termInp = document.getElementById('termInput');
+            if (termInp) {
+                termInp.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') { handleCommand(termInp.value); termInp.value = ''; }
+                    if (e.key === 'Escape') closeTerminal();
+                });
+            }
+        });
+
+        // Press '/' to open terminal (when not in an input)
+        document.addEventListener('keydown', (e) => {
+            const term = document.getElementById('terminal');
+            if (!term) return;
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && term.style.display !== 'flex') {
+                e.preventDefault();
+                openTerminal();
+            }
+            if (e.key === 'Escape' && term.style.display === 'flex') closeTerminal();
+        });
+
+        // -------- Glitch effect --------
+        function triggerGlitch() {
+            let n = 0;
+            const cycle = setInterval(() => {
+                wIdx = (wIdx + 1) % WAVELENGTHS.length;
+                applyWavelength(WAVELENGTHS[wIdx]);
+                if (++n >= 10) {
+                    clearInterval(cycle);
+                    wIdx = 0;
+                    applyWavelength(WAVELENGTHS[0]);
+                }
+            }, 190);
+
+            const overlay = document.createElement('div');
+            overlay.className = 'glitch-overlay';
+            overlay.innerHTML = '<span class="glitch-label">SYSTEM OVERRIDE</span>';
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 2900);
+        }
+
+        // -------- Konami code --------
+        const KONAMI_SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        let konamiIdx = 0;
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement.tagName === 'INPUT') { konamiIdx = 0; return; }
+            if (e.key === KONAMI_SEQ[konamiIdx]) {
+                if (++konamiIdx === KONAMI_SEQ.length) { konamiIdx = 0; triggerGlitch(); }
+            } else {
+                konamiIdx = e.key === KONAMI_SEQ[0] ? 1 : 0;
+            }
+        });
+
+        // -------- Ambient sound (Web Audio API) --------
+        let audioCtx = null;
+        let masterGain = null;
+        let soundOn = false;
+
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = 0;
+            masterGain.connect(audioCtx.destination);
+
+            // 60Hz electrical hum
+            const hum = audioCtx.createOscillator();
+            hum.frequency.value = 60;
+            hum.type = 'sine';
+            const humGain = audioCtx.createGain();
+            humGain.gain.value = 0.04;
+            hum.connect(humGain);
+            humGain.connect(masterGain);
+            hum.start();
+
+            // 180Hz harmonic
+            const hum3 = audioCtx.createOscillator();
+            hum3.frequency.value = 180;
+            hum3.type = 'sine';
+            const hum3Gain = audioCtx.createGain();
+            hum3Gain.gain.value = 0.012;
+            hum3.connect(hum3Gain);
+            hum3Gain.connect(masterGain);
+            hum3.start();
+
+            // Low-pass brown noise (laser lab hiss)
+            const bufLen = audioCtx.sampleRate * 4;
+            const buf = audioCtx.createBuffer(1, bufLen, audioCtx.sampleRate);
+            const d = buf.getChannelData(0);
+            let last = 0;
+            for (let i = 0; i < bufLen; i++) {
+                const w = Math.random() * 2 - 1;
+                d[i] = (last + 0.02 * w) / 1.02;
+                last = d[i];
+                d[i] *= 3.5;
+            }
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buf;
+            noise.loop = true;
+            const noiseFilter = audioCtx.createBiquadFilter();
+            noiseFilter.type = 'lowpass';
+            noiseFilter.frequency.value = 180;
+            const noiseGain = audioCtx.createGain();
+            noiseGain.gain.value = 0.01;
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(masterGain);
+            noise.start();
+        }
+
+        function toggleSound() {
+            if (!audioCtx) initAudio();
+            soundOn = !soundOn;
+            masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+            masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+            masterGain.gain.linearRampToValueAtTime(soundOn ? 1 : 0, audioCtx.currentTime + 0.6);
+            const btn = document.getElementById('soundToggle');
+            if (btn) {
+                btn.textContent = '[♦] SOUND: ' + (soundOn ? 'ON' : 'OFF');
+                btn.classList.toggle('active', soundOn);
+            }
+            return soundOn;
+        }
+
+        // -------- Nav hover preview --------
+        document.addEventListener('DOMContentLoaded', () => {
+            const navPreview = document.getElementById('navPreview');
+            const previewInner = document.getElementById('navPreviewInner');
+            if (!navPreview || !previewInner) return;
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    const m = (link.getAttribute('onclick') || '').match(/'([^']+)'/);
+                    if (!m) return;
+                    const section = document.getElementById(m[1]);
+                    if (!section) return;
+                    previewInner.innerHTML = section.innerHTML;
+                    navPreview.classList.add('visible');
+                });
+                link.addEventListener('mouseleave', () => {
+                    navPreview.classList.remove('visible');
+                });
+            });
+        });
     </script>
 </body>
 </html>
- 
