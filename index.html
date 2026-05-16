@@ -851,6 +851,99 @@
             cursor: none;
         }
         #termInput::placeholder { color: var(--text-dim); }
+
+        /* -------- Sound toggle button -------- */
+        .meta-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .sound-toggle {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            cursor: none;
+            transition: color 0.2s, text-shadow 0.2s;
+            user-select: none;
+        }
+        .sound-toggle.active {
+            color: var(--laser-green);
+            text-shadow: 0 0 8px var(--laser-green);
+        }
+        .sound-toggle:hover { color: var(--laser-red); text-shadow: 0 0 8px var(--laser-red); }
+
+        /* -------- Nav hover preview -------- */
+        .nav-preview {
+            position: fixed;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            overflow: hidden;
+        }
+        .nav-preview.visible { opacity: 1; }
+        #navPreviewInner {
+            position: absolute;
+            top: 180px;
+            left: 0;
+            right: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+            filter: blur(8px);
+            opacity: 0.13;
+            transform: scale(0.97);
+            transition: transform 0.35s ease;
+        }
+        .nav-preview.visible #navPreviewInner { transform: scale(1); }
+
+        /* -------- Glitch overlay -------- */
+        .glitch-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 30000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: glitchOverlayAnim 2.8s forwards;
+        }
+        @keyframes glitchOverlayAnim {
+            0%   { opacity: 0; background: transparent; }
+            5%   { opacity: 1; background: rgba(255,45,66,0.04); }
+            20%  { clip-path: inset(10% 0 30% 0); }
+            21%  { clip-path: inset(0); }
+            40%  { clip-path: inset(55% 0 8% 0); }
+            41%  { clip-path: inset(0); }
+            85%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .glitch-label {
+            font-family: var(--font-mono);
+            font-size: clamp(1.1rem, 3.5vw, 2.4rem);
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--laser-red);
+            text-shadow:
+                0 0 20px var(--laser-red),
+                0 0 60px var(--laser-red-glow),
+                5px 0 0 rgba(91,240,255,0.5),
+                -5px 0 0 rgba(70,255,138,0.4);
+            animation: glitchLabelAnim 2.8s forwards;
+        }
+        @keyframes glitchLabelAnim {
+            0%  { opacity: 0; transform: translateX(0); }
+            5%  { opacity: 1; transform: translateX(-8px) skewX(4deg); }
+            10% { transform: translateX(8px) skewX(-4deg); }
+            15% { transform: translateX(-4px) skewX(2deg); }
+            20% { transform: translateX(4px) skewX(-2deg); }
+            30% { transform: translateX(0); opacity: 1; }
+            85% { transform: translateX(0); opacity: 1; }
+            90% { transform: translateX(-5px) skewX(3deg); opacity: 0.6; }
+            100% { transform: translateX(0); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -860,6 +953,9 @@
     <div class="grain"></div>
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="scroll-beam" id="scrollBeam"></div>
+    <div id="navPreview" class="nav-preview" aria-hidden="true">
+        <div id="navPreviewInner"></div>
+    </div>
 
     <!-- Instrument status bar -->
     <div class="instrument-bar">
@@ -867,7 +963,10 @@
             <span><span class="status-dot"></span>BEAM ACTIVE</span>
             <span>λ = <span class="wavelength-readout">632.8nm</span></span>
         </div>
-        <span class="terminal-hint" onclick="openTerminal()">[/] TERMINAL</span>
+        <div class="meta-controls">
+            <span class="sound-toggle" id="soundToggle" onclick="toggleSound()">[♦] SOUND: OFF</span>
+            <span class="terminal-hint" onclick="openTerminal()">[/] TERMINAL</span>
+        </div>
     </div>
  
     <!-- Hero -->
@@ -1218,6 +1317,8 @@
                         { t: '  goto <section>      \u2014 navigate the site', c: 't-out' },
                         { t: '  wavelength <nm>     \u2014 set laser wavelength', c: 't-out' },
                         { t: '  status              \u2014 system readout', c: 't-out' },
+                        { t: '  sound               \u2014 toggle ambient sound', c: 't-out' },
+                        { t: '  glitch              \u2014 ???', c: 't-out' },
                         { t: '  clear               \u2014 clear terminal', c: 't-out' },
                         { t: '  exit                \u2014 close terminal', c: 't-out' },
                         { t: '', c: '' },
@@ -1287,6 +1388,15 @@
                     ]);
                     break;
                 }
+                case 'sound': {
+                    const on = toggleSound();
+                    termPrint([{ t: '> AMBIENT SOUND: ' + (on ? 'ON' : 'OFF'), c: 't-ok' }, { t: '', c: '' }]);
+                    break;
+                }
+                case 'glitch':
+                    closeTerminal();
+                    setTimeout(triggerGlitch, 200);
+                    break;
                 case 'clear':
                     document.getElementById('termOutput').innerHTML = '';
                     break;
@@ -1330,6 +1440,129 @@
                 openTerminal();
             }
             if (e.key === 'Escape' && term.style.display === 'flex') closeTerminal();
+        });
+
+        // -------- Glitch effect --------
+        function triggerGlitch() {
+            let n = 0;
+            const cycle = setInterval(() => {
+                wIdx = (wIdx + 1) % WAVELENGTHS.length;
+                applyWavelength(WAVELENGTHS[wIdx]);
+                if (++n >= 10) {
+                    clearInterval(cycle);
+                    wIdx = 0;
+                    applyWavelength(WAVELENGTHS[0]);
+                }
+            }, 190);
+
+            const overlay = document.createElement('div');
+            overlay.className = 'glitch-overlay';
+            overlay.innerHTML = '<span class="glitch-label">SYSTEM OVERRIDE</span>';
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 2900);
+        }
+
+        // -------- Konami code --------
+        const KONAMI_SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        let konamiIdx = 0;
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement.tagName === 'INPUT') { konamiIdx = 0; return; }
+            if (e.key === KONAMI_SEQ[konamiIdx]) {
+                if (++konamiIdx === KONAMI_SEQ.length) { konamiIdx = 0; triggerGlitch(); }
+            } else {
+                konamiIdx = e.key === KONAMI_SEQ[0] ? 1 : 0;
+            }
+        });
+
+        // -------- Ambient sound (Web Audio API) --------
+        let audioCtx = null;
+        let masterGain = null;
+        let soundOn = false;
+
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = 0;
+            masterGain.connect(audioCtx.destination);
+
+            // 60Hz electrical hum
+            const hum = audioCtx.createOscillator();
+            hum.frequency.value = 60;
+            hum.type = 'sine';
+            const humGain = audioCtx.createGain();
+            humGain.gain.value = 0.04;
+            hum.connect(humGain);
+            humGain.connect(masterGain);
+            hum.start();
+
+            // 180Hz harmonic
+            const hum3 = audioCtx.createOscillator();
+            hum3.frequency.value = 180;
+            hum3.type = 'sine';
+            const hum3Gain = audioCtx.createGain();
+            hum3Gain.gain.value = 0.012;
+            hum3.connect(hum3Gain);
+            hum3Gain.connect(masterGain);
+            hum3.start();
+
+            // Low-pass brown noise (laser lab hiss)
+            const bufLen = audioCtx.sampleRate * 4;
+            const buf = audioCtx.createBuffer(1, bufLen, audioCtx.sampleRate);
+            const d = buf.getChannelData(0);
+            let last = 0;
+            for (let i = 0; i < bufLen; i++) {
+                const w = Math.random() * 2 - 1;
+                d[i] = (last + 0.02 * w) / 1.02;
+                last = d[i];
+                d[i] *= 3.5;
+            }
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buf;
+            noise.loop = true;
+            const noiseFilter = audioCtx.createBiquadFilter();
+            noiseFilter.type = 'lowpass';
+            noiseFilter.frequency.value = 180;
+            const noiseGain = audioCtx.createGain();
+            noiseGain.gain.value = 0.01;
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(masterGain);
+            noise.start();
+        }
+
+        function toggleSound() {
+            if (!audioCtx) initAudio();
+            soundOn = !soundOn;
+            masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+            masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+            masterGain.gain.linearRampToValueAtTime(soundOn ? 1 : 0, audioCtx.currentTime + 0.6);
+            const btn = document.getElementById('soundToggle');
+            if (btn) {
+                btn.textContent = '[♦] SOUND: ' + (soundOn ? 'ON' : 'OFF');
+                btn.classList.toggle('active', soundOn);
+            }
+            return soundOn;
+        }
+
+        // -------- Nav hover preview --------
+        document.addEventListener('DOMContentLoaded', () => {
+            const navPreview = document.getElementById('navPreview');
+            const previewInner = document.getElementById('navPreviewInner');
+            if (!navPreview || !previewInner) return;
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    const m = (link.getAttribute('onclick') || '').match(/'([^']+)'/);
+                    if (!m) return;
+                    const section = document.getElementById(m[1]);
+                    if (!section) return;
+                    previewInner.innerHTML = section.innerHTML;
+                    navPreview.classList.add('visible');
+                });
+                link.addEventListener('mouseleave', () => {
+                    navPreview.classList.remove('visible');
+                });
+            });
         });
     </script>
 </body>
