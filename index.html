@@ -179,7 +179,7 @@
                 <p class="lede">Materials science undergraduate at MIT · Cambridge, MA</p>
 
                 <p>I study Materials Science &amp; Engineering at MIT.</p>
-                <p>My current research is on light-dose orientation for Volumetric Additive Manufacturing — a 3D printing technique where collimated beams converge inside a rotating vat of photoresin to build geometry out of light.</p>
+                <p>My current research is on nanocomposites, specifically on carbon nanotube/polysulfone composites. When mixed, the product of these two creates a conductive path, depending on the concentration of nanotubes. My goal is to find a sweetspot where these composites are most piezoresistive (have the biggest change in resistance due to strain).</p>
                 <p>Outside of research I play soccer, spend time with friends on campus, and build hardware projects for fun.</p>
             </section>
 
@@ -197,19 +197,19 @@
                 <h2>Log</h2>
 
                 <article class="entry">
-                    <h3>Understanding the Fourier Slice Theorem</h3>
-                    <p class="entry-meta">2026.03.05 · imaging, signal processing</p>
+                    <h3>My problem with the current state of laser pointers.</h3>
+                    <p class="entry-meta">2026.09.05 · lasers, advocacy</p>
 
-                    <p>The Fourier Slice Theorem (also known as the Projection-Slice Theorem) is a fundamental principle underpinning medical imaging modalities like CT scans. In simple terms, it states that the 1D Fourier transform of a parallel projection of a 2D object is exactly equal to a 1D slice of the 2D Fourier transform of that object through its origin.</p>
-                    <p>Mathematically, let's represent an object's density as a 2D function $ f(x, y) $. If we take a projection of this object along the y-axis, we integrate over $ y $ to get a 1D function $ p(x) $:</p>
-                    <p>$$ p(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$</p>
-                    <p>Next, we take the 1D Fourier transform of this projection:</p>
-                    <p>$$ P(u) = \int_{-\infty}^{\infty} p(x) e^{-i 2\pi u x} \, dx $$</p>
-                    <p>Now, consider the 2D Fourier transform of the original object $ f(x, y) $:</p>
-                    <p>$$ F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-i 2\pi (ux + vy)} \, dx \, dy $$</p>
-                    <p>If we examine the slice of this 2D transform exactly along the x-axis (where $ v = 0 $), the equation simplifies perfectly to match our 1D transform of the projection:</p>
-                    <p>$$ F(u, 0) = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(x, y) \, dy \right) e^{-i 2\pi u x} \, dx = P(u) $$</p>
-                    <p>Because of this relationship, we can take physical projections of an object from multiple angles, compute their 1D Fourier transforms to build out a 2D frequency domain plane, and then apply an inverse 2D Fourier transform to reconstruct the original object's internal structure.</p>
+                    <p>Most of what is wrong with consumer laser pointers isn't a missing law or regulation. The law is already there, it's been there, and it is specific. The problem is that almost nobody checks whether the device in your hand actually obeys it.</p>
+                    <p>Under 21 CFR 1040.10 and 1040.11, any laser product sold in the United States must meet a federal performance standard administered by the FDA's Center for Devices and Radiological Health. For anything sold as a pointer, that means Class 3R at most. Five milliwatts of visible output, with the far stricter Class 1 accessible emission limit governing everything past 700 nm in the infrared. Manufacturers certify their own compliance and file a report. There is no required independent test.</p>
+                    <p>But what does the market look like in practice? The best answer available is still a NIST study from 2013. Joshua Hadler and colleagues built a deliberately cheap test bed and measured 122 commercially purchased pointers. Roughly 90 percent of the green units and 44 percent of the red units were out of compliance, and 52 percent of all devices tested exceeded the pointer power limit by a factor of two or more. The worst offender put out 66.5 milliwatts, more than ten times the legal ceiling. This essentially says there is a high probability that a handheld laser labeled Class 3R is in fact a Class 3B device.</p>
+                    <p>I want to bring up the infrared point. A green pointer isn't a green diode. It's an 808 nm diode driving a neodymium crystal at 1064 nm, frequency doubled down to 532 nm. Everything upstream of that final conversion is invisible, and the only thing standing between it and your retina is a filter that costs the manufacturer money to install. NIST found green pointers routinely emitting unacceptable infrared levels alongside the visible beam. Your blink reflex answers to brightness. It doesnt react to 1064 nm.</p>
+                    <p>This brings me to the actual failure point. The label is the only information a buyer has, and the label is the thing that is false. A consumer generally cannot measure output power, especially if it is an unknowing parent. They cannot detect infrared leakage. They read "Class IIIa, less than 5 mW," which is a legal claim made by a party with every incentive to make it and essentially no chance of being audited, and they reasonably believe it.</p>
+                    <p>There are consequences. Pilots reported 10,994 laser strikes to the FAA in 2025, a 14 percent decrease from the previous year after 12,840 strikes in 2024. The agency has tracked 337 pilot injuries since it began collecting the data in 2010. Green is the most commonly reported color, which is exactly what you would predict from a category that is both the brightest per milliwatt and the least likely to meet spec.</p>
+                    <p>What actually bothers me is that NIST survey is thirteen years old. It is still the most rigorous public characterization of the American pointer market. The market it sampled barely resembles the one we have now, where a listing can advertise burning through electrical tape as a selling point while the same product page claims a compliant five milliwatts, and where the seller can dissolve and relist under a new name faster than any enforcement action can land.</p>
+                    <p>This summer I filed a Citizen Petition with the FDA under 21 CFR 10.30. It is docketed as FDA-2026-P-7822. The agency already has a valid, unambiguous performance standard, and it also has published federal measurement data showing a majority noncompliance rate against that standard. What it doesn't have is an enforcement posture built for a market that has shifted almost entirely to anonymous overseas sellers shipping directly to consumers, where manufacturer self certification is functionally an honor system with no honor in it. The petition asks the agency to stop treating the pointer category as presumptively compliant and to reconcile its enforcement approach with its own evidence.</p>
+                    <p>I built it on the NIST measurements, on FAA strike data, and on the structure of the certification requirement itself, with fifteen supporting footnotes and a severability clause, because I would rather have the strongest request survive on its own than watch the entire petition get dismissed on the weakest one.</p>
+                    <p>The obvious objection to a petition resting on 2013 data is that it rests on 2013 data. I agree, and that is the next step. The NIST apparatus was designed specifically so that other institutions could replicate it easily. A fresh random sample of what is actually being sold in 2026, measured properly, reported per unit across both bands, is a study one undergraduate can run, and it is one that apparently nobody has run in over a decade.</p>
                 </article>
             </section>
 
@@ -320,7 +320,7 @@
                 <a href="tel:3524619325">352.461.9325</a>
                 <a href="https://www.linkedin.com/in/jomcabel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
-            <div>© 2026 Jose Carvajal-Beltran</div>
+            <div>2026</div>
         </footer>
 
     </div>
