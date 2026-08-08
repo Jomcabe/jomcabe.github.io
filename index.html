@@ -92,6 +92,75 @@
         }
         .entry-meta a { color: var(--muted); }
 
+        /* ---- Log pagination ---- */
+        .blog-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 0;
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+            margin: 1.2rem 0;
+            font-size: 0.9rem;
+        }
+        .blog-pagination.top-pagination {
+            margin-top: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .blog-pagination.bottom-pagination {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .page-nav-btn {
+            padding: 0.35rem 0.75rem;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            background: #fff;
+            color: var(--text);
+            font-size: 0.85rem;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+        .page-nav-btn:hover:not(:disabled) {
+            border-color: var(--muted);
+            background: #fafafa;
+        }
+        .page-nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .page-numbers {
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+        .page-number-btn {
+            min-width: 32px;
+            height: 32px;
+            padding: 0 0.5rem;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            background: #fff;
+            color: var(--muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .page-number-btn:hover {
+            color: var(--text);
+            border-color: var(--muted);
+        }
+        .page-number-btn.active {
+            background: var(--text);
+            color: #fff;
+            border-color: var(--text);
+            font-weight: 600;
+        }
+        .log-page {
+            border-top: none !important;
+            padding-top: 0.5rem !important;
+        }
+
         /* ---- Media ---- */
         figure { margin: 1.4rem 0; }
         .video-container {
@@ -152,6 +221,7 @@
 
         @media (max-width: 520px) {
             .portrait { float: none; width: 140px; margin: 0 0 1rem; display: block; }
+            .blog-pagination { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -196,7 +266,10 @@
             <section id="blog" class="content-section">
                 <h2>Log</h2>
 
-                <article class="entry">
+                <!-- Top pagination controls -->
+                <nav class="blog-pagination top-pagination" aria-label="Log pagination top"></nav>
+
+                <article class="entry log-page" data-page="1">
                     <h3>My problem with the current state of laser pointers.</h3>
                     <p class="entry-meta">2026.09.05 · lasers, advocacy</p>
 
@@ -212,13 +285,30 @@
                     <p>The obvious objection to a petition resting on 2013 data is that it rests on 2013 data. I agree, and that is the next step. The NIST apparatus was designed specifically so that other institutions could replicate it easily. A fresh random sample of what is actually being sold in 2026, measured properly, reported per unit across both bands, is a study one undergraduate can run, and it is one that apparently nobody has run in over a decade.</p>
                 </article>
 
-                <article class="entry">
+                <article class="entry log-page" data-page="2">
                     <h3>Placeholder Title — More Stuff Coming Soon</h3>
                     <p class="entry-meta">2026.08.08 · placeholder, stuff</p>
 
                     <p>This is a placeholder body. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. More thoughts, updates, and stuff will go here soon — this entry is just a placeholder to hold the layout.</p>
                     <p>Stay tuned for future posts. In the meantime, this space is reserved for additional log entries, ideas, and other things worth talking about. Check back later for the full content!</p>
                 </article>
+
+                <!-- Bottom pagination controls -->
+                <nav class="blog-pagination bottom-pagination" aria-label="Log pagination bottom"></nav>
+
+                <!--
+                  HOW TO ADD MORE PAGES:
+                  1. Duplicate an <article class="entry log-page" data-page="N"> block above
+                  2. Set data-page to the next number (3, then 4, etc.)
+                  3. Update the <h3> title, <p class="entry-meta"> date/tags, and body <p> content
+                  4. Commit and push - the pagination buttons (top + bottom) auto-generate on page load
+                  Example:
+                  <article class="entry log-page" data-page="3">
+                      <h3>My third post title</h3>
+                      <p class="entry-meta">2026.08.15 · new, topic</p>
+                      <p>Body text here...</p>
+                  </article>
+                -->
             </section>
 
             <!-- PROJECTS -->
@@ -339,6 +429,58 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
             if (element) element.classList.add('active-nav');
             window.scrollTo({ top: 0 });
+            if (sectionId === 'blog') {
+                showLogPage(1);
+            }
+        }
+
+        let currentLogPage = 1;
+
+        function showLogPage(n) {
+            const pages = document.querySelectorAll('.log-page');
+            if (!pages.length) return;
+            const total = pages.length;
+            if (n < 1) n = 1;
+            if (n > total) n = total;
+            currentLogPage = n;
+            pages.forEach(p => {
+                const pageNum = parseInt(p.dataset.page, 10);
+                p.style.display = (pageNum === n) ? 'block' : 'none';
+            });
+            renderLogPagination();
+            // scroll to top of log section when changing pages
+            const blogSection = document.getElementById('blog');
+            if (blogSection && blogSection.classList.contains('active')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function renderLogPagination() {
+            const pages = document.querySelectorAll('.log-page');
+            const total = pages.length;
+            const navs = document.querySelectorAll('.blog-pagination');
+            navs.forEach(nav => {
+                let html = '';
+                html += `<button class="page-nav-btn" onclick="showLogPage(currentLogPage - 1)" ${currentLogPage === 1 ? 'disabled' : ''}>← Previous</button>`;
+                html += `<div class="page-numbers">`;
+                for (let i = 1; i <= total; i++) {
+                    html += `<button class="page-number-btn ${i === currentLogPage ? 'active' : ''}" onclick="showLogPage(${i})">${i}</button>`;
+                }
+                html += `</div>`;
+                html += `<button class="page-nav-btn" onclick="showLogPage(currentLogPage + 1)" ${currentLogPage === total ? 'disabled' : ''}>Next →</button>`;
+                nav.innerHTML = html;
+            });
+        }
+
+        function initLogPagination() {
+            // Ensure initial state shows page 1
+            showLogPage(1);
+        }
+
+        document.addEventListener('DOMContentLoaded', initLogPagination);
+        // Also init immediately in case DOM already loaded
+        if (document.readyState !== 'loading') {
+            initLogPagination();
         }
     </script>
 </body>
