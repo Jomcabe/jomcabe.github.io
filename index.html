@@ -41,8 +41,8 @@
         a:hover { text-decoration: none; }
 
         h1 { font-size: 1.9rem; font-weight: 600; margin: 0 0 0.25rem; letter-spacing: -0.01em; }
-        h2 { font-size: 1.35rem; font-weight: 600; margin: 0 0 1.25rem; }
-        h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin: 0 0 1.25rem; }
+        h3 { font-size: 1.25rem; font-weight: 600; margin: 0 0 0.2rem; }
         p  { margin: 0 0 1.1rem; }
 
         /* ---- Header / nav ---- */
@@ -65,7 +65,13 @@
             cursor: pointer;
         }
         .nav-link:hover { color: var(--text); }
-        .nav-link.active-nav { color: var(--text); font-weight: 600; }
+        .nav-link.active-nav {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 5px;
+        }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
         /* ---- Sections ---- */
         main { padding: 2.25rem 0 1rem; }
@@ -73,6 +79,15 @@
         .content-section.active { display: block; }
 
         .lede { color: var(--muted); margin: 0 0 1.6rem; }
+
+        .home-links {
+            clear: both;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.1rem;
+            padding-top: 0.5rem;
+            margin-top: 1.5rem;
+        }
 
         /* ---- Home portrait ---- */
         .portrait {
@@ -235,13 +250,14 @@
     <div class="wrap">
 
         <header>
-            <div class="site-name"><a onclick="showSection('home', document.querySelector('.nav-link'))">Jose Carvajal-Beltran</a></div>
-            <nav>
-                <a class="nav-link active-nav" onclick="showSection('home', this)">Home</a>
-                <a class="nav-link" onclick="showSection('resume', this)">Resume</a>
-                <a class="nav-link" onclick="showSection('blog', this)">Log</a>
-                <a class="nav-link" onclick="showSection('personal-projects', this)">Projects</a>
-                <a class="nav-link" onclick="showSection('academics', this)">Academics</a>
+            <div class="site-name"><a href="#home" onclick="showSection('home', document.getElementById('nav-home')); return false;">Jose Carvajal-Beltran</a></div>
+            <nav aria-label="Main navigation">
+                <a id="nav-home" class="nav-link active-nav" href="#home" aria-current="page" onclick="showSection('home', this); return false;">Home</a>
+                <a id="nav-research" class="nav-link" href="#research" onclick="showSection('research', this); return false;">Research</a>
+                <a id="nav-projects" class="nav-link" href="#personal-projects" onclick="showSection('personal-projects', this); return false;">Projects</a>
+                <a id="nav-future-projects" class="nav-link" href="#future-projects" onclick="showSection('future-projects', this); return false;">Future Projects</a>
+                <a id="nav-resume" class="nav-link" href="#resume" onclick="showSection('resume', this); return false;">Resume</a>
+                <a id="nav-log" class="nav-link" href="#blog" onclick="showSection('blog', this); return false;">Log</a>
             </nav>
         </header>
 
@@ -256,6 +272,11 @@
                 <p>I study Materials Science &amp; Engineering at MIT.</p>
                 <p>My recent research was on nanocomposites, specifically on carbon nanotube/polysulfone composites. When mixed, the product of these two creates a conductive path, depending on the concentration of nanotubes. My goal was to find a sweetspot where these composites are most piezoresistive (have the biggest change in resistance due to strain).</p>
                 <p>Outside of research I play soccer, spend time with friends on campus, and build hardware projects for fun.</p>
+                <div class="home-links" aria-label="Quick links">
+                    <a href="#resume" onclick="showSection('resume', document.getElementById('nav-resume')); return false;">Resume</a>
+                    <a href="mailto:Jocabe@mit.edu">Email</a>
+                    <a href="https://github.com/Jomcabe" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
             </section>
 
             <!-- RESUME -->
@@ -320,20 +341,6 @@
                 <h2>Projects</h2>
 
                 <article class="entry">
-                    <h3>ISEF: Potential Shift in Velocity as Temperature Changes</h3>
-                    <p class="entry-meta">International Science &amp; Engineering Fair · Physics · <a href="https://isef.net/project/phys005-potential-shift-in-velocity-as-temperature-changes" target="_blank" rel="noopener noreferrer">PHYS005 ↗</a></p>
-                    <p>Motivated by the growing interest in drone delivery systems and rotor-based space capsules, this project used maple samara seeds as a physical analogue to study how temperature affects aerodynamic descent. I dropped 30 seeds twice each across three controlled-temperature rooms (180 total trials), recording fall times from 2.3 meters and computing terminal velocity, energy equilibrium, and Reynolds numbers for each condition.</p>
-                    <p>The results showed a clear shift: at 27 °C terminal velocity exceeded 1 m/s, while at 20 °C it stayed below that threshold. The higher-temperature runs also yielded lower Reynolds numbers, indicating a more laminar flow regime. The data point to a positive correlation between ambient temperature and descent velocity, and suggest that future work with more temperature points could sharpen these findings considerably. This project won a CIA award</p>
-                </article>
-
-                <article class="entry">
-                    <h3>ISEF: Dynamics of Space Capsule with Rotors</h3>
-                    <p class="entry-meta">International Science &amp; Engineering Fair · Physics · <a href="https://isef.net/project/phys002-dynamics-of-space-capsule-with-rotors" target="_blank" rel="noopener noreferrer">PHYS002 ↗</a></p>
-                    <p>Despite decades of NASA interest in rotor-equipped re-entry capsules, the literature rarely drills down to the rotor geometry itself. This project set out to fill that gap, testing the hypothesis that a larger chord length produces superior autorotation performance. I ran a CFD simulation of the NACA 4412 airfoil to map pressure distributions across the blade, then applied Momentum Theory to derive closed-form autorotation equations and estimate Reynolds numbers under idealized assumptions.</p>
-                    <p>A Blade Element Momentum (BEM) simulation revealed a counterintuitive result: the efficiency curve is actually wider — meaning more forgiving across a range of conditions — for shorter chord lengths than for longer ones. Supplementary heat-flux analyses of the capsule outer surface produced consistent results across two independent runs. The overall conclusion is that a rotor-based space capsule is plausible, but optimal performance likely favors thinner, high-strength blades and a coaxial rotor arrangement to manage the highly turbulent Reynolds regime predicted during descent. This project won a full tuition scholarship to F.I.T.</p>
-                </article>
-
-                <article class="entry">
                     <h3>Custom Air Hockey Table</h3>
                     <p class="entry-meta">Edgerton · MIT · Interphase Edge</p>
                     <figure>
@@ -374,23 +381,25 @@
                     </figure>
                     <p>This was my final project for 8.012, it was revolving a problem from a Problem Set that felt very counterintuitive even if the math checked out. We made a physical model and coded a simulation (with a BIT of exaggeration) to see if the phenomenon was real and if it could be explained better. The problem was of two beads on this ring, it is said that if the beads were a certain mass or greater, then the ring would 'jump' up at a certain angle. We tested this in real life (after hours of making models that didn't work and using ancient scales) and found that the phenomenon did actually happen, seeing it made it feel more intuitive. We submitted our report and ended up getting selected to present in front of the entire class (Shoutout to Kaku &amp; Ishan)!</p>
                 </article>
+
+                <article class="entry">
+                    <h3>ISEF: Potential Shift in Velocity as Temperature Changes</h3>
+                    <p class="entry-meta">International Science &amp; Engineering Fair · Physics · <a href="https://isef.net/project/phys005-potential-shift-in-velocity-as-temperature-changes" target="_blank" rel="noopener noreferrer">PHYS005 ↗</a></p>
+                    <p>Motivated by the growing interest in drone delivery systems and rotor-based space capsules, this project used maple samara seeds as a physical analogue to study how temperature affects aerodynamic descent. I dropped 30 seeds twice each across three controlled-temperature rooms (180 total trials), recording fall times from 2.3 meters and computing terminal velocity, energy equilibrium, and Reynolds numbers for each condition.</p>
+                    <p>The results showed a clear shift: at 27 °C terminal velocity exceeded 1 m/s, while at 20 °C it stayed below that threshold. The higher-temperature runs also yielded lower Reynolds numbers, indicating a more laminar flow regime. The data point to a positive correlation between ambient temperature and descent velocity, and suggest that future work with more temperature points could sharpen these findings considerably. This project won a CIA award</p>
+                </article>
+
+                <article class="entry">
+                    <h3>ISEF: Dynamics of Space Capsule with Rotors</h3>
+                    <p class="entry-meta">International Science &amp; Engineering Fair · Physics · <a href="https://isef.net/project/phys002-dynamics-of-space-capsule-with-rotors" target="_blank" rel="noopener noreferrer">PHYS002 ↗</a></p>
+                    <p>Despite decades of NASA interest in rotor-equipped re-entry capsules, the literature rarely drills down to the rotor geometry itself. This project set out to fill that gap, testing the hypothesis that a larger chord length produces superior autorotation performance. I ran a CFD simulation of the NACA 4412 airfoil to map pressure distributions across the blade, then applied Momentum Theory to derive closed-form autorotation equations and estimate Reynolds numbers under idealized assumptions.</p>
+                    <p>A Blade Element Momentum (BEM) simulation revealed a counterintuitive result: the efficiency curve is actually wider — meaning more forgiving across a range of conditions — for shorter chord lengths than for longer ones. Supplementary heat-flux analyses of the capsule outer surface produced consistent results across two independent runs. The overall conclusion is that a rotor-based space capsule is plausible, but optimal performance likely favors thinner, high-strength blades and a coaxial rotor arrangement to manage the highly turbulent Reynolds regime predicted during descent. This project won a full tuition scholarship to F.I.T.</p>
+                </article>
             </section>
 
-            <!-- ACADEMICS -->
-            <section id="academics" class="content-section">
-                <h2>Academics</h2>
-
-                <article class="entry">
-                    <h3>8.012 Classical Mechanics</h3>
-                    <p class="entry-meta">MIT Physics · Advanced Track · Fall 2025</p>
-                    <p>Definitely the hardest and most time-consuming endeavor so far in my journey (albeit the journey has just started). This class is informally called 'physics for masochists'. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused heavily on advanced calculus and vector algebra.</p>
-                </article>
-
-                <article class="entry">
-                    <h3>6.2020 Electronics Project Laboratory</h3>
-                    <p class="entry-meta">MIT EECS · Prof. Jim Bales · Fall 2025</p>
-                    <p>One of the most interactive and interesting classes I've taken. Taught by Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week.</p>
-                </article>
+            <!-- RESEARCH -->
+            <section id="research" class="content-section">
+                <h2>Research</h2>
 
                 <article class="entry">
                     <h3>UROP: Optimal Orientation for VAM</h3>
@@ -414,6 +423,40 @@
                 </article>
             </section>
 
+            <!-- FUTURE PROJECTS -->
+            <section id="future-projects" class="content-section">
+                <h2>Future Projects</h2>
+                <p>Project plans coming soon.</p>
+
+                <!--
+                  To add a project plan, replace the line above with this article.
+                  Copy the article for each additional idea.
+
+                  <article class="entry">
+                      <h3>Project title</h3>
+                      <p><strong>The idea.</strong> Outline what you want to make.</p>
+                      <p><strong>Why I want to pursue it.</strong> Explain what interests you about it.</p>
+                  </article>
+                -->
+            </section>
+
+            <!-- ACADEMICS -->
+            <section id="academics" class="content-section">
+                <h2>Academics</h2>
+
+                <article class="entry">
+                    <h3>8.012 Classical Mechanics</h3>
+                    <p class="entry-meta">MIT Physics · Advanced Track · Fall 2025</p>
+                    <p>Definitely the hardest and most time-consuming endeavor so far in my journey (albeit the journey has just started). This class is informally called 'physics for masochists'. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused heavily on advanced calculus and vector algebra.</p>
+                </article>
+
+                <article class="entry">
+                    <h3>6.2020 Electronics Project Laboratory</h3>
+                    <p class="entry-meta">MIT EECS · Prof. Jim Bales · Fall 2025</p>
+                    <p>One of the most interactive and interesting classes I've taken. Taught by Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week.</p>
+                </article>
+            </section>
+
         </main>
 
         <footer>
@@ -422,6 +465,7 @@
                 <a href="tel:3524619325">352.461.9325</a>
                 <a href="https://www.linkedin.com/in/jomcabel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
+            <p><a id="nav-academics" class="nav-link" href="#academics" onclick="showSection('academics', this); return false;">Academics</a></p>
             <div class="last-updated">Last updated: 2026.09.08</div>
         </footer>
 
@@ -431,8 +475,14 @@
         function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
-            if (element) element.classList.add('active-nav');
+            document.querySelectorAll('.nav-link').forEach(l => {
+                l.classList.remove('active-nav');
+                l.removeAttribute('aria-current');
+            });
+            if (element) {
+                element.classList.add('active-nav');
+                element.setAttribute('aria-current', 'page');
+            }
             window.scrollTo({ top: 0 });
             if (sectionId === 'blog') {
                 showLogPage(1);
