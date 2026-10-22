@@ -107,6 +107,37 @@
         }
         .entry-meta a { color: var(--muted); }
 
+        /* ---- Academic year / semester tabs ---- */
+        .academic-tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: 1.25rem;
+        }
+        .academic-tab {
+            padding: 0.45rem 0.75rem;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .academic-tab:hover { color: var(--text); }
+        .academic-tab[aria-selected="true"] {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            font-weight: 600;
+        }
+        .academic-tab:focus-visible,
+        .academic-panel:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+        .academic-semesters .academic-tab { font-size: 0.85rem; }
+        .academic-empty { color: var(--muted); }
+
         /* ---- Log pagination ---- */
         .blog-pagination {
             display: flex;
@@ -444,17 +475,88 @@
             <section id="academics" class="content-section">
                 <h2>Academics</h2>
 
-                <article class="entry">
-                    <h3>8.012 Classical Mechanics</h3>
-                    <p class="entry-meta">MIT Physics · Advanced Track · Fall 2025</p>
-                    <p>Definitely the hardest and most time-consuming endeavor so far in my journey (albeit the journey has just started). This class is informally called 'physics for masochists'. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused heavily on advanced calculus and vector algebra.</p>
-                </article>
+                <div data-academic-tabs>
+                    <div class="academic-tabs" role="tablist" aria-label="Academic year">
+                        <button type="button" class="academic-tab" id="year-1-tab" role="tab" aria-selected="true" aria-controls="year-1" tabindex="0">Year 1</button>
+                        <button type="button" class="academic-tab" id="year-2-tab" role="tab" aria-selected="false" aria-controls="year-2" tabindex="-1">Year 2</button>
+                        <button type="button" class="academic-tab" id="year-3-tab" role="tab" aria-selected="false" aria-controls="year-3" tabindex="-1">Year 3</button>
+                        <button type="button" class="academic-tab" id="year-4-tab" role="tab" aria-selected="false" aria-controls="year-4" tabindex="-1">Year 4</button>
+                    </div>
 
-                <article class="entry">
-                    <h3>6.2020 Electronics Project Laboratory</h3>
-                    <p class="entry-meta">MIT EECS · Prof. Jim Bales · Fall 2025</p>
-                    <p>One of the most interactive and interesting classes I've taken. Taught by Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week.</p>
-                </article>
+                    <div class="academic-panel" id="year-1" role="tabpanel" aria-labelledby="year-1-tab" tabindex="0">
+                        <p class="entry-meta">First year · 2025–2026</p>
+                        <div data-academic-tabs>
+                            <div class="academic-tabs academic-semesters" role="tablist" aria-label="Year 1 semester">
+                                <button type="button" class="academic-tab" id="year-1-fall-tab" role="tab" aria-selected="true" aria-controls="year-1-fall" tabindex="0">Fall</button>
+                                <button type="button" class="academic-tab" id="year-1-spring-tab" role="tab" aria-selected="false" aria-controls="year-1-spring" tabindex="-1">Spring</button>
+                            </div>
+                            <div class="academic-panel" id="year-1-fall" role="tabpanel" aria-labelledby="year-1-fall-tab" tabindex="0">
+                                <article class="entry">
+                                    <h3>8.012 Classical Mechanics</h3>
+                                    <p class="entry-meta">MIT Physics · Advanced Track · Fall 2025</p>
+                                    <p>Definitely the hardest and most time-consuming endeavor so far in my journey (albeit the journey has just started). This class is informally called 'physics for masochists'. People would ask me all the time "why are you taking that class", and I genuinely had no response other than for curiosity. This class focused heavily on advanced calculus and vector algebra.</p>
+                                </article>
+
+                                <article class="entry">
+                                    <h3>6.2020 Electronics Project Laboratory</h3>
+                                    <p class="entry-meta">MIT EECS · Prof. Jim Bales · Fall 2025</p>
+                                    <p>One of the most interactive and interesting classes I've taken. Taught by Jim Bales, this class was an introduction to circuits and basic laws about electricity. We built many projects with protoboard and learned how to use new electrical components every week.</p>
+                                </article>
+                            </div>
+                            <div class="academic-panel" id="year-1-spring" role="tabpanel" aria-labelledby="year-1-spring-tab" tabindex="0" hidden>
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="academic-panel" id="year-2" role="tabpanel" aria-labelledby="year-2-tab" tabindex="0" hidden>
+                        <p class="entry-meta">Sophomore year · 2026–2027</p>
+                        <div data-academic-tabs>
+                            <div class="academic-tabs academic-semesters" role="tablist" aria-label="Year 2 semester">
+                                <button type="button" class="academic-tab" id="year-2-fall-tab" role="tab" aria-selected="true" aria-controls="year-2-fall" tabindex="0">Fall</button>
+                                <button type="button" class="academic-tab" id="year-2-spring-tab" role="tab" aria-selected="false" aria-controls="year-2-spring" tabindex="-1">Spring</button>
+                            </div>
+                            <div class="academic-panel" id="year-2-fall" role="tabpanel" aria-labelledby="year-2-fall-tab" tabindex="0">
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                            <div class="academic-panel" id="year-2-spring" role="tabpanel" aria-labelledby="year-2-spring-tab" tabindex="0" hidden>
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="academic-panel" id="year-3" role="tabpanel" aria-labelledby="year-3-tab" tabindex="0" hidden>
+                        <p class="entry-meta">Junior year · 2027–2028</p>
+                        <div data-academic-tabs>
+                            <div class="academic-tabs academic-semesters" role="tablist" aria-label="Year 3 semester">
+                                <button type="button" class="academic-tab" id="year-3-fall-tab" role="tab" aria-selected="true" aria-controls="year-3-fall" tabindex="0">Fall</button>
+                                <button type="button" class="academic-tab" id="year-3-spring-tab" role="tab" aria-selected="false" aria-controls="year-3-spring" tabindex="-1">Spring</button>
+                            </div>
+                            <div class="academic-panel" id="year-3-fall" role="tabpanel" aria-labelledby="year-3-fall-tab" tabindex="0">
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                            <div class="academic-panel" id="year-3-spring" role="tabpanel" aria-labelledby="year-3-spring-tab" tabindex="0" hidden>
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="academic-panel" id="year-4" role="tabpanel" aria-labelledby="year-4-tab" tabindex="0" hidden>
+                        <p class="entry-meta">Senior year · 2028–2029</p>
+                        <div data-academic-tabs>
+                            <div class="academic-tabs academic-semesters" role="tablist" aria-label="Year 4 semester">
+                                <button type="button" class="academic-tab" id="year-4-fall-tab" role="tab" aria-selected="true" aria-controls="year-4-fall" tabindex="0">Fall</button>
+                                <button type="button" class="academic-tab" id="year-4-spring-tab" role="tab" aria-selected="false" aria-controls="year-4-spring" tabindex="-1">Spring</button>
+                            </div>
+                            <div class="academic-panel" id="year-4-fall" role="tabpanel" aria-labelledby="year-4-fall-tab" tabindex="0">
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                            <div class="academic-panel" id="year-4-spring" role="tabpanel" aria-labelledby="year-4-spring-tab" tabindex="0" hidden>
+                                <p class="academic-empty">Classes to be added.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
         </main>
@@ -472,6 +574,37 @@
     </div>
 
     <script>
+        document.querySelectorAll('[data-academic-tabs]').forEach(group => {
+            const tablist = group.querySelector(':scope > [role="tablist"]');
+            const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+
+            function selectTab(selectedTab) {
+                tabs.forEach(tab => {
+                    const selected = tab === selectedTab;
+                    tab.setAttribute('aria-selected', String(selected));
+                    tab.tabIndex = selected ? 0 : -1;
+                    document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+                });
+            }
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => selectTab(tab));
+                tab.addEventListener('keydown', event => {
+                    let nextIndex;
+                    switch (event.key) {
+                        case 'ArrowRight': nextIndex = (index + 1) % tabs.length; break;
+                        case 'ArrowLeft': nextIndex = (index - 1 + tabs.length) % tabs.length; break;
+                        case 'Home': nextIndex = 0; break;
+                        case 'End': nextIndex = tabs.length - 1; break;
+                        default: return;
+                    }
+                    event.preventDefault();
+                    selectTab(tabs[nextIndex]);
+                    tabs[nextIndex].focus();
+                });
+            });
+        });
+
         function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
@@ -540,3 +673,4 @@
     </script>
 </body>
 </html>
+
