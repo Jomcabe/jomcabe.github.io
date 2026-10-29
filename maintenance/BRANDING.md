@@ -1,16 +1,26 @@
-# Approved branding — publishing pending
+# Approved personal branding — published
 
-User approved the ivory italic J favicon. Source: assets/favicon.svg. Matching 1200x630 social-card source: assets/social-card.svg.
+The owner approved the ivory italic J on navy. Activated in generated commit 7fad0d04eb98f4c538154b07b0f547e7a412df78.
 
-Ordinary content writes succeeded, but writing .github/workflows/publish-branding.yml returned 403 Resource not accessible by personal access token. No workflow was created, PNGs have NOT been generated, and index.html has NOT been changed. Do not claim the new branding is active yet.
+- Site: https://jocabe.com/
+- SVG favicon: /assets/favicon.svg?v=j1
+- 32x32 fallback: /assets/favicon-32.png?v=j1
+- 180x180 Apple touch icon: /assets/apple-touch-icon.png?v=j1
+- 1200x630 PNG share image: https://jocabe.com/assets/social-card.png?v=j1
+- Static Open Graph and Twitter large-image tags, description and canonical URL are in index.html. No page-body/layout/content changes.
 
-## Finish via GitHub UI (no token changes needed)
-1. Open maintenance/publish-branding.workflow.yml in the GitHub editor. Rename/move it to .github/workflows/publish-branding.yml and commit to main.
-2. Under Actions choose Publish approved personal branding, Run workflow, main.
-3. The workflow renders PNGs using pinned CairoSVG 2.7.1, adds static Open Graph/Twitter metadata, replaces the favicon link, commits the result, and requests a Pages rebuild. It uses only GitHub's temporary built-in token, not a custom secret. Check its run and Pages deployment for success.
-4. Verify https://jocabe.com/ with cache bypass, all /assets/ image URLs, PNG dimensions and image/png content type; verify metadata in raw HTML and page body unchanged. Test desktop/mobile navigation. Actual third-party social preview caches may need refresh.
+Workflow Publish approved personal branding run 40809586064 succeeded; Pages deployment 40809677261 succeeded. The permission issue was resolved by the owner. Active workflow: .github/workflows/publish-branding.yml. maintenance/publish-branding.workflow.yml is the earlier inactive template, not required to run or move.
 
-Alternatively grant the connected fine-grained token Workflows: Read and write for Jomcabe/jomcabe.github.io so the agent can install the workflow. Classic tokens need workflow scope. Never paste tokens into chat.
+## Verified with Playwright
+- Live cache-bypassed HTML contains new SVG favicon and static social metadata.
+- All four image assets HTTPS 200; PNG Content-Type image/png; dimensions 32x32, 180x180, 1200x630.
+- Compared source body before/after: byte-for-byte unchanged.
+- Desktop navigation: Research, Academics, Projects, Future Projects, Resume, Log, Home.
+- 390x844 Chromium viewport: academic Year 2 tab and Home navigation; no horizontal overflow.
+- No page JavaScript errors in navigation test. Existing external embed/browser warnings not exhaustively audited.
+- Actual Facebook/LinkedIn/X/iMessage preview rendering and caches not tested; metadata and public PNG delivery verified, not platform-specific behavior.
 
-## Finish locally without Actions
-With Python and Cairo installed: pip install CairoSVG==2.7.1; python3 scripts/publish-branding.py. Review diff, commit index.html and generated assets/*.png, push main, wait for Pages. Neither the site nor visitors need Python; these are one-time asset generation tools.
+## Maintenance
+Edit approved source SVGs or scripts/publish-branding.py and push main; path-filtered workflow renders PNGs, updates head metadata and requests Pages rebuild. Can also run through Actions > Publish approved personal branding > Run workflow. Python/CairoSVG are asset-generation tools only; site visitors need neither. Checkout action pinned by SHA; CairoSVG 2.7.1 pinned. Only built-in ephemeral GitHub token used; no custom secrets committed.
+
+Share platforms may cache previous previews; request a re-scrape with their tools if needed. Browser favicon caches can persist; hard refresh/reopen tab or wait. Body remains intentionally unchanged.
