@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 128 128">
+<title>Hollow carbon nanotube favicon proposal</title>
+<defs>
+ <linearGradient id="wall" x1="0" x2="1"><stop stop-color="#18384d"/><stop offset=".48" stop-color="#31667c"/><stop offset="1" stop-color="#10293c"/></linearGradient>
+ <clipPath id="tube"><path d="M34 27V99C34 114 94 114 94 99V27C94 42 34 42 34 27Z"/></clipPath>
+</defs>
+<rect width="128" height="128" rx="26" fill="#102238"/>
+<path d="M34 27V99C34 114 94 114 94 99V27C94 42 34 42 34 27Z" fill="url(#wall)"/>
+<g clip-path="url(#tube)" fill="none" stroke="#95e3ee" stroke-width="2.4" stroke-linejoin="round">
+<!-- Hexagonal wall, compressed toward the cylinder edges. -->
+<path d="M34 32 40 38 40 50 34 55 M40 38 51 34 64 41 64 55 51 62 40 50 M64 41 77 34 88 38 88 50 77 62 64 55 M88 38 94 32 M88 50 94 55
+M34 55 40 62 40 74 34 79 M40 62 51 62 64 69 64 83 51 90 40 74 M64 69 77 62 88 62 88 74 77 90 64 83 M88 62 94 55 M88 74 94 79
+M34 79 40 86 40 98 34 103 M40 86 51 90 64 97 64 111 51 118 40 98 M64 97 77 90 88 86 88 98 77 118 64 111 M88 86 94 79 M88 98 94 103"/>
+</g>
+<path d="M34 27V99C34 114 94 114 94 99V27" fill="none" stroke="#6bb8cb" stroke-width="2.5"/>
+<!-- Dark open mouth distinguishes a tube from a solid rod. -->
+<ellipse cx="64" cy="27" rx="30" ry="11" fill="#081320" stroke="#b7f1f5" stroke-width="3"/>
+<path d="M42 28C48 19 80 19 86 28" fill="none" stroke="#366176" stroke-width="2"/>
+</svg>
