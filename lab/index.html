@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; frame-src about:; base-uri 'none'; form-action 'none'">
+  <title>Specimen Label Lab</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #f3f1e9; }
+    iframe { display: block; width: 100%; height: 100%; border: 0; }
+  </style>
+</head>
+<body>
+  <noscript>Enable JavaScript to open the specimen label lab.</noscript>
+  <iframe id="lab" title="Specimen label practice lab" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+
+  <template id="lab-document">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+    <style>
+      :root {
+        color-scheme: light;
+        background: #f3f1e9;
+        color: #252820;
+        font: 16px/1.55 Inter, system-ui, sans-serif;
+        --muted: #50584b;
+        --line: #c1c7b6;
+        --green: #233f32;
+        --paper: #fffdf6;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      main { max-width: 960px; margin: auto; padding: clamp(24px, 5vw, 64px); }
+      header { padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+      h1, h2, p { margin: 0; }
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2.25rem, 7vw, 4.75rem);
+        line-height: 1;
+        letter-spacing: -.065em;
+      }
+      h2 { font-size: 1.2rem; line-height: 1.3; }
+      header p { max-width: 62ch; }
+      .scope { margin-top: 12px; color: var(--muted); font-size: .9rem; }
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 24px;
+        margin: 28px 0;
+      }
+      .editor, .label { min-width: 0; }
+      textarea {
+        display: block;
+        margin: 10px 0 12px;
+        width: 100%;
+        min-height: 115px;
+        padding: 12px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: inherit;
+        background: var(--paper);
+        font: .93rem/1.5 "IBM Plex Mono", monospace;
+      }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      button {
+        border: 1px solid var(--green);
+        border-radius: 4px;
+        padding: 9px 13px;
+        background: var(--green);
+        color: white;
+        cursor: pointer;
+        font: inherit;
+      }
+      button.secondary { color: var(--green); background: transparent; }
+      button:focus-visible, textarea:focus-visible, summary:focus-visible, input:focus-visible {
+        outline: 2px solid #946217;
+        outline-offset: 3px;
+      }
+      .toggle { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+      .label {
+        display: flex;
+        flex-direction: column;
+        align-self: start;
+        gap: 8px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-left: 5px solid #597658;
+        background: var(--paper);
+      }
+      .specimen { color: var(--muted); font: .82rem/1.4 "IBM Plex Mono", monospace; }
+      .preview {
+        overflow: auto;
+        min-height: 4em;
+        max-height: 16em;
+        padding-top: 8px;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+      }
+      .proof {
+        align-self: flex-start;
+        padding: 4px 8px;
+        background: #e5edda;
+        color: var(--green);
+        font: .88rem/1.4 "IBM Plex Mono", monospace;
+      }
+      details { padding: 12px 0; border-top: 1px solid var(--line); }
+      summary { font-weight: 650; cursor: pointer; }
+      details p { margin: 8px 0; max-width: 72ch; }
+      code { font-family: "IBM Plex Mono", monospace; font-size: .9em; }
+      pre { padding: 12px; overflow-x: auto; background: var(--paper); border: 1px solid var(--line); }
+      @media (max-width: 650px) {
+        .workbench { grid-template-columns: 1fr; }
+      }
+    </style>
+
+    <main>
+      <header>
+        <h1>Specimen label lab</h1>
+        <p>Make the label preview execute JavaScript. Your proof is to change the badge from
+           <strong>Waiting for proof</strong> to <strong>LAB PASSED</strong>.</p>
+        <p class="scope">Authorized practice target: the label preview on this page. The specimen data is fictional.</p>
+      </header>
+
+      <section class="workbench" aria-label="Label workbench">
+        <section class="editor" aria-label="Label editor">
+          <h2><label for="note">Handling note</label></h2>
+          <textarea id="note" maxlength="4000" spellcheck="false">Fragile. Handle the wafer by its edges.</textarea>
+          <div class="actions">
+            <button type="button" id="render">Preview label</button>
+            <button type="button" class="secondary" id="reset">Reset</button>
+          </div>
+          <label class="toggle">
+            <input id="render-text" type="checkbox"> Render as plain text
+          </label>
+        </section>
+
+        <section class="label" aria-label="Label preview">
+          <span class="specimen">SPECIMEN 03</span>
+          <h2>CNT forest on silicon</h2>
+          <div class="preview" id="preview"></div>
+          <output class="proof" id="proof" aria-live="polite">Waiting for proof</output>
+        </section>
+      </section>
+
+      <details>
+        <summary>Hint 1 · Probe the preview</summary>
+        <p>Preview <code>&lt;em&gt;probe&lt;/em&gt;</code>. Look at whether the browser displays the angle brackets or renders italic text.</p>
+      </details>
+      <details>
+        <summary>Hint 2 · Trace the input</summary>
+        <p>Use Firefox’s page source or fetch this page with <code>curl</code>. Search for <code>innerHTML</code>.
+           Follow the handling note from the text box into the preview.</p>
+      </details>
+      <details>
+        <summary>Solution · Run the proof and test the fix</summary>
+        <p>Paste this into <strong>Handling note</strong> and click <strong>Preview label</strong>.</p>
+        <pre><code>&lt;img src="data:,bad" alt="" onerror="document.querySelector('#proof').textContent='LAB PASSED'"&gt;</code></pre>
+        <p>The browser creates an image element from the note and runs its <code>onerror</code> handler when the image fails to load.
+           The handler changes the badge, which proves JavaScript executed. This is DOM-based cross-site scripting (XSS).</p>
+        <p>Turn on <strong>Render as plain text</strong> and preview the same input again.
+           The app now uses <code>textContent</code>. The payload appears as text and the badge resets.</p>
+      </details>
+    </main>
+
+    <script>
+      const note = document.querySelector("#note");
+      const preview = document.querySelector("#preview");
+      const proof = document.querySelector("#proof");
+      const renderText = document.querySelector("#render-text");
+
+      function renderLabel() {
+        proof.textContent = "Waiting for proof";
+        if (renderText.checked) {
+          preview.textContent = note.value;
+        } else {
+          preview.innerHTML = note.value;
+        }
+      }
+
+      document.querySelector("#render").addEventListener("click", renderLabel);
+
+      document.querySelector("#reset").addEventListener("click", () => {
+        note.value = note.defaultValue;
+        renderText.checked = false;
+        renderLabel();
+        note.focus();
+      });
+
+      renderLabel();
+    </script>
+  </template>
+  <script>
+    const lab = document.querySelector("#lab");
+    lab.srcdoc = "<!doctype html><html lang=\"en\"><title>Specimen label practice</title>"
+      + document.querySelector("#lab-document").innerHTML + "</html>";
+  </script>
+</body>
+</html>
