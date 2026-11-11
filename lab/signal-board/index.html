@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://jocabe-signal-lab.jocabe362102.chatgpt.site; base-uri 'none'; form-action 'none'">
+  <title>Signal Board</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      background: #111a1a;
+      color: #ecf1e8;
+      font: 16px/1.55 Inter, system-ui, sans-serif;
+      --muted: #aabbb1;
+      --line: #3e554d;
+      --green: #b8ed9a;
+      --amber: #f0b983;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none; }
+    body { margin: 0; }
+    main { width: min(100% - 40px, 910px); margin: 0 auto; padding: clamp(30px, 8vw, 100px) 0; }
+    header { padding-bottom: 24px; }
+    h1, h2, p, dl { margin: 0; }
+    h1 { font-size: clamp(2.8rem, 8vw, 6rem); line-height: .98; letter-spacing: -.075em; }
+    header p { max-width: 56ch; margin-top: 16px; color: var(--muted); }
+    h2 { font-size: 1.18rem; }
+    .board { padding: clamp(20px, 5vw, 48px); border: 1px solid var(--line); background: #172320; }
+    .board[data-state="captured"] { border-color: var(--green); }
+    .reading { display: flex; align-items: center; gap: 12px; margin: 8px 0 18px; color: var(--amber); }
+    .reading::before { content: ""; width: .72em; height: .72em; border-radius: 50%; background: currentColor; }
+    .board[data-state="captured"] .reading { color: var(--green); }
+    .reading span { font: 650 clamp(1.3rem, 5vw, 2.6rem)/1.1 var(--mono); overflow-wrap: anywhere; }
+    .label, dt { color: var(--muted); font: .85rem/1.5 var(--mono); }
+    dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; padding: 16px 0; border-top: 1px solid var(--line); }
+    dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+    .details { margin-top: 28px; }
+    .details p, .scope { margin-top: 10px; max-width: 72ch; }
+    .scope { color: var(--muted); font-size: .9rem; }
+    code, pre { font-family: var(--mono); font-size: .92em; }
+    pre { margin: 12px 0; padding: 12px; border: 1px solid var(--line); overflow: auto; background: #0d1514; }
+    button { padding: 8px 12px; color: var(--green); border: 1px solid var(--line); background: transparent; font: inherit; cursor: pointer; }
+    button:disabled { color: var(--muted); cursor: default; }
+    a { color: var(--green); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+    @media (max-width: 400px) { dl { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Signal Board</h1>
+      <p>Flip a fictional receiver from <strong>Nominal</strong> to <strong>Captured</strong> from your Kali terminal.
+         Watch the same board on a second device.</p>
+    </header>
+
+    <section class="board" id="board" data-state="idle" aria-label="Receiver status">
+      <h2 class="label">Receiver status</h2>
+      <p class="reading"><span id="status" role="status">No board loaded</span></p>
+      <dl id="metadata" hidden>
+        <div><dt>Last change</dt><dd id="updated">None yet</dd></div>
+        <div><dt>Board expires</dt><dd id="expires"></dd></div>
+      </dl>
+      <button id="check" type="button" hidden>Check now</button>
+    </section>
+
+    <section class="details" aria-labelledby="mission">
+      <h2 id="mission">Run the exercise</h2>
+      <p>Create a board from Kali. Open the returned <code>viewer_url</code> on any device. Keep the returned practice token in Kali.</p>
+      <pre><code>curl -fsS -X POST https://jocabe-signal-lab.jocabe362102.chatgpt.site/api/boards</code></pre>
+      <p>The token starts with the <code>viewer</code> role. The capture route requires <code>operator</code>.
+         Inspect the token and see what happens when you change the role.</p>
+      <p class="scope">Practice scope: this lab API and your own board. Boards hold fictional state and expire after 24 hours.</p>
+      <p class="scope"><a href="/lab/">Specimen label lab</a> · <a href="/">Portfolio</a></p>
+    </section>
+  </main>
+  <script>
+    const API = "https://jocabe-signal-lab.jocabe362102.chatgpt.site";
+    const board = document.querySelector("#board");
+    const statusLabel = document.querySelector("#status");
+    const check = document.querySelector("#check");
+    const metadata = document.querySelector("#metadata");
+    const expires = document.querySelector("#expires");
+    const updated = document.querySelector("#updated");
+    const id = location.hash.slice(1);
+    let timer;
+
+    function displayDate(value) {
+      return new Date(value).toLocaleString();
+    }
+
+    async function readBoard() {
+      clearTimeout(timer);
+      check.disabled = true;
+      let poll = true;
+      try {
+        const response = await fetch(API + "/api/boards/" + id, {cache: "no-store", credentials: "omit"});
+        if (response.status === 404) {
+          statusLabel.textContent = "Board missing or expired";
+          board.dataset.state = "idle";
+          metadata.hidden = true;
+          poll = false;
+          return;
+        }
+        if (!response.ok) throw new Error("Board unavailable");
+        const reading = await response.json();
+        if (!["nominal", "captured"].includes(reading.status)) throw new Error("Invalid reading");
+        board.dataset.state = reading.status;
+        statusLabel.textContent = reading.status === "captured" ? "Captured" : "Nominal";
+        expires.textContent = displayDate(reading.expires_at);
+        updated.textContent = reading.updated_at ? displayDate(reading.updated_at) : "None yet";
+        metadata.hidden = false;
+        poll = reading.status !== "captured";
+      } catch {
+        statusLabel.textContent = "Cannot reach the board";
+        board.dataset.state = "idle";
+        metadata.hidden = true;
+      } finally {
+        check.disabled = false;
+        if (poll) timer = setTimeout(readBoard, 5000);
+      }
+    }
+
+    if (/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(id)) {
+      statusLabel.textContent = "Reading board";
+      check.hidden = false;
+      check.addEventListener("click", readBoard);
+      readBoard();
+    } else if (id) {
+      statusLabel.textContent = "Invalid board link";
+    }
+    window.addEventListener("hashchange", () => location.reload());
+  </script>
+</body>
+</html>
