@@ -311,6 +311,7 @@
                 <a id="nav-research" class="nav-link" href="#research" onclick="showSection('research', this); return false;">Research</a>
                 <a id="nav-academics" class="nav-link" href="#academics" onclick="showSection('academics', this); return false;">Academics</a>
                 <a id="nav-projects" class="nav-link" href="#personal-projects" onclick="showSection('personal-projects', this); return false;">Projects</a>
+                <a id="nav-personal-pages" class="nav-link" href="#personal-pages" onclick="showSection('personal-pages', this); return false;">(mostly) personal pages</a>
                 <a id="nav-future-projects" class="nav-link" href="#future-projects" onclick="showSection('future-projects', this); return false;">Future Projects</a>
                 <a id="nav-resume" class="nav-link" href="#resume" onclick="showSection('resume', this); return false;">Resume</a>
                 <a id="nav-log" class="nav-link" href="#blog" onclick="showSection('blog', this); return false;">Log</a>
@@ -395,6 +396,7 @@
             <!-- PROJECTS -->
             <section id="personal-projects" class="content-section">
                 <h2>Projects</h2>
+                <p><a href="#personal-pages" onclick="showSection('personal-pages', document.getElementById('nav-personal-pages')); return false;">(mostly) personal pages</a></p>
 
                 <article class="entry">
                     <h3>Custom Air Hockey Table</h3>
@@ -450,6 +452,15 @@
                     <p class="entry-meta">International Science &amp; Engineering Fair · Physics · <a href="https://isef.net/project/phys002-dynamics-of-space-capsule-with-rotors" target="_blank" rel="noopener noreferrer">PHYS002 ↗</a></p>
                     <p>Despite decades of NASA interest in rotor-equipped re-entry capsules, the literature is extremely hard to find regarding the geometry of the rotors (it was all probably classified). This project set out to fill that gap, testing the hypothesis that a larger chord length produces superior autorotation performance. I ran a CFD simulation of the NACA 4412 airfoil to map pressure distributions across the blade, then applied Momentum Theory to derive closed-form autorotation equations and estimate Reynolds numbers under idealized assumptions.</p>
                     <p>A Blade Element Momentum (BEM) simulation gave me the picture that I spent too long looking for. The efficiency curve is actually wider (meaning more 'forgiving' across a range of conditions) for shorter chord lengths than for longer ones. Supplementary heat-flux analyses of the capsule outer surface produced consistent results across two independent runs. The overall conclusion is that a rotor-based space capsule is plausible, but optimal performance likely favors thinner, high-strength blades and a coaxial rotor arrangement to manage the highly turbulent Reynolds regime predicted during descent. This project won a full tuition scholarship to F.I.T.</p>
+                </article>
+            </section>
+
+            <!-- PERSONAL PAGES: Add standalone personal webpages here. -->
+            <section id="personal-pages" class="content-section">
+                <h2>(mostly) personal pages</h2>
+                <article class="entry">
+                    <h3><a href="/converter/">Everything Converter</a></h3>
+                    <p>literally just converts files.</p>
                 </article>
             </section>
 
@@ -613,7 +624,7 @@
                 <a href="tel:3524619325">352.461.9325</a>
                 <a href="https://www.linkedin.com/in/jomcabel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
-            <div class="last-updated">Last updated: 2026.10.22</div>
+            <div class="last-updated">Last updated: 2026.11.23</div>
         </footer>
 
     </div>
@@ -660,6 +671,9 @@
             if (element) {
                 element.classList.add('active-nav');
                 element.setAttribute('aria-current', 'page');
+            }
+            if (location.hash !== '#' + sectionId) {
+                history.replaceState(null, '', '#' + sectionId);
             }
             window.scrollTo({ top: 0 });
             if (sectionId === 'blog') {
@@ -709,6 +723,13 @@
             // Ensure initial state shows page 1
             showLogPage(1);
         }
+
+        function showLinkedSection() {
+            const link = Array.from(document.querySelectorAll('.nav-link')).find(link => link.getAttribute('href') === location.hash);
+            if (link) showSection(link.getAttribute('href').slice(1), link);
+        }
+        window.addEventListener('hashchange', showLinkedSection);
+        showLinkedSection();
 
         document.addEventListener('DOMContentLoaded', initLogPagination);
         // Also init immediately in case DOM already loaded
